@@ -303,7 +303,7 @@ const Dashboard = () => {
           <div className="bg-TypographyDark rounded-[12px] p-[32px] flex flex-col items-center">
             <div className="relative flex flex-col basis-1/2 items-center justify-center">
               <img
-                src="../assets/images/Illustration.png"
+                src="../assets/images/illustration.png"
                 alt="help"
                 style={{ width: '95%', height: '95%' }}
               />
