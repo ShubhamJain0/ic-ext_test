@@ -326,7 +326,11 @@ const Dashboard = () => {
                 align="text-center"
               />
               <span className="mt-[10px]"></span>
-              <Button label="Optimize a website" type="button" />
+              <Button
+                label="Optimize a website"
+                type="button"
+                onClick={() => navigate('/select-website')}
+              />
             </div>
           </div>
         </div>
