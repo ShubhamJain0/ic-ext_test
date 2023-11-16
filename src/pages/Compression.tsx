@@ -280,7 +280,7 @@ const Compression = () => {
                   <p className="m-[0px] mt-[5px] font-manropeMedium text-TypographyDarker md:text-bodyMd sm:text-bodySm text-bodyXs cursor-context-menu">
                     Visit our learning center to learn how to connect a website using an
                     API.{' '}
-                    <a className="font-manropeMedium text-Primary" href="#">
+                    <a className="font-manropeMedium text-Primary cursor-pointer">
                       Learn more
                     </a>
                   </p>

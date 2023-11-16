@@ -65,7 +65,7 @@ const Dashboard = () => {
         </div>
         <div className="basis-1/2">
           <div className="flex flex-row gap-3 bg-[#FFFFFF47] px-[24px] py-[12px] rounded-[39px] shadow-[inset_-1px_-1px_0px_0px_#FFFFFF47]">
-            <a href="#" className="basis-1/2">
+            <a className="basis-1/2 cursor-pointer">
               <Header
                 content="Connected Sites"
                 lgSize="lg:text-bodySm"
@@ -75,7 +75,7 @@ const Dashboard = () => {
                 align="text-center"
               />
             </a>
-            <a href="#" className="basis-1/2">
+            <a className="basis-1/2 cursor-pointer">
               <Header
                 content="Task History"
                 lgSize="lg:text-bodySm"
@@ -85,7 +85,7 @@ const Dashboard = () => {
                 align="text-center"
               />
             </a>
-            <a href="#" className="basis-1/2">
+            <a className="basis-1/2 cursor-pointer">
               <Header
                 content="Learn More"
                 lgSize="lg:text-bodySm"
@@ -288,7 +288,7 @@ const Dashboard = () => {
             mdSize="md:text-bodySm"
           />
           <div className="bg-[rgba(255,255,255,0.2)] px-[15px] py-[4px] rounded-[7px]">
-            <a href="#" className="text-white font-satoshiMedium text-center">
+            <a className="text-white font-satoshiMedium text-center cursor-pointer">
               support@thethunderclap.com
             </a>
           </div>

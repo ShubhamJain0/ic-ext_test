@@ -151,7 +151,7 @@ const Login = () => {
             icon="password"
           />
           <div className="items-end flex flex-col">
-            <a className="text-Primary text-bodyMd font-satoshiMedium" href="#">
+            <a className="text-Primary text-bodyMd font-satoshiMedium cursor-pointer">
               Forgot Password
             </a>
           </div>
