@@ -97,11 +97,7 @@ const Login = () => {
         <div style={{ zIndex: 1 }} className="flex flex-row">
           <img src="../assets/images/octopus.png" />
           <div className="-ml-10 mt-5">
-            <HelpTag
-              text="Curious about how it works?"
-              link="#"
-              linkText="Read our guide"
-            />
+            <HelpTag text="Curious about how it works?" linkText="Read our guide" />
           </div>
         </div>
       </div>

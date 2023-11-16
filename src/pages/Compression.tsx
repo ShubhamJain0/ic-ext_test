@@ -127,7 +127,7 @@ const Compression = () => {
         <div style={{ zIndex: 1 }} className="flex flex-row">
           <img src="../assets/images/octopus.png" />
           <div className="-ml-10 mt-5">
-            <HelpTag text="Don't know how to begin?" link="#" linkText="Read our guide" />
+            <HelpTag text="Don't know how to begin?" linkText="Read our guide" />
           </div>
         </div>
       </div>
