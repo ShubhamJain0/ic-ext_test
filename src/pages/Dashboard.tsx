@@ -7,7 +7,7 @@ import { getRecentActivities, getRecentConnections } from '../utils/apis';
 
 const Dashboard = () => {
   const { state } = useLocation();
-  const [isFirstTimeUser, setIsFirstTimeUser] = useState(state?.isFirstTimeUser || false);
+  const [isFirstTimeUser, setIsFirstTimeUser] = useState(state?.isFirstTimeUser || true);
   const [recentConnections, setRecentConnections] = useState<any>([]);
   const [recentActivity, setRecentActivity] = useState<any>([]);
   const navigate = useNavigate();
@@ -299,8 +299,8 @@ const Dashboard = () => {
       </div>
       {/* Popup Component - This should be below of all components so that it is always on top of other components */}
       {isFirstTimeUser && (
-        <div className="flex items-center justify-center absolute top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.7)]">
-          <div className="bg-TypographyDark rounded-[12px] p-[32px] flex flex-col items-center">
+        <div className="flex items-center justify-center fixed top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.7)]">
+          <div className="bg-TypographyDark rounded-[12px] p-[32px] flex flex-col items-center max-h-[100vh]">
             <div className="relative flex flex-col basis-1/2 items-center justify-center">
               <img
                 src="../assets/images/illustration.png"
@@ -316,7 +316,9 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="flex flex-col basis-1/2 items-center justify-center mt-[20px] w-[80%]">
+              <span className="mt-[20px]"></span>
               <HeaderBold content="Hi Emma, let's get you started!" />
+              <span className="mt-[10px]"></span>
               <BodyText
                 content="Boost your website's speed and user experience with our image compression. Keep quality high and loading times low."
                 xlSize="xl:text-bodySm"
@@ -325,11 +327,15 @@ const Dashboard = () => {
                 color="text-TypographyLight"
                 align="text-center"
               />
-              <span className="mt-[10px]"></span>
+              <span className="mt-[50px]"></span>
               <Button
                 label="Optimize a website"
                 type="button"
-                onClick={() => navigate('/select-website')}
+                onClick={() =>
+                  navigate('/select-website', {
+                    state: { hasRecentConnections: recentConnections.length > 0 },
+                  })
+                }
               />
             </div>
           </div>

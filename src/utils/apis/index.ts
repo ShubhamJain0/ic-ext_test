@@ -1,4 +1,4 @@
-const BASE_URL = 'https://930e-49-37-134-243.ngrok-free.app/api/ic_tool/v1';
+const BASE_URL = 'https://ic-backend-test.vercel.app/api/ic_tool/v1';
 
 const getHeaders = () => {
   const headers = new Map();
