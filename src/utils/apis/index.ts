@@ -194,11 +194,11 @@ export const getRecentConnections = async (
     //Remove this after logic added
     onSuccess({
       data: [
-        {
-          image_url: '../../assets/images/thumbnail.png',
-          name: 'Adelfox - Engage your audience',
-          activity: 'opened just now',
-        },
+        // {
+        //   image_url: 'images/thumbnail.svg',
+        //   name: 'Adelfox - Engage your audience',
+        //   activity: 'opened just now',
+        // },
       ],
     });
   } catch (error) {

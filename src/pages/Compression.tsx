@@ -125,9 +125,9 @@ const Compression = () => {
           </div>
         </div>
         <div style={{ zIndex: 1 }} className="flex flex-row">
-          <img src="../assets/images/octopus.png" />
+          <img src="images/octopus.svg" />
           <div className="-ml-10 mt-5">
-            <HelpTag text="Don't know how to begin?" linkText="Read our guide" />
+            <HelpTag text="Don't know how to begin?" link="#" linkText="Read our guide" />
           </div>
         </div>
       </div>
@@ -144,7 +144,7 @@ const Compression = () => {
             <div className="flex flex-row items-center gap-5">
               {selectedMode === 'API' ? (
                 <div className="w-[24px] h-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
-                  <img src="../assets/images/check.png" />
+                  <img src="images/check.svg" />
                 </div>
               ) : (
                 <div className="w-[24px] h-[24px] rounded-[100px] bg-TypographyLight"></div>
@@ -166,7 +166,7 @@ const Compression = () => {
               </div>
             </div>
             <div>
-              <img src="../assets/images/api-icon.png" />
+              <img src="images/api-icon.svg" />
             </div>
           </div>
           <div
@@ -180,7 +180,7 @@ const Compression = () => {
             <div className="flex flex-row items-center gap-5">
               {selectedMode === 'Webflow' ? (
                 <div className="w-[24px] h-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
-                  <img src="../assets/images/check.png" />
+                  <img src="images/check.svg" />
                 </div>
               ) : (
                 <div className="w-[24px] h-[24px] rounded-[100px] bg-TypographyLight"></div>
@@ -202,7 +202,7 @@ const Compression = () => {
               </div>
             </div>
             <div>
-              <img src="../assets/images/webflow-icon.png" />
+              <img src="images/webflow-icon.svg" />
             </div>
           </div>
           {state?.hasRecentConnections && (
@@ -217,7 +217,7 @@ const Compression = () => {
               <div className="flex flex-row items-center gap-5">
                 {selectedMode === 'Connections' ? (
                   <div className="w-[24px] h-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
-                    <img src="../assets/images/check.png" />
+                    <img src="images/check.svg" />
                   </div>
                 ) : (
                   <div className="w-[24px] h-[24px] rounded-[100px] bg-TypographyLight"></div>
@@ -239,7 +239,7 @@ const Compression = () => {
                 </div>
               </div>
               <div>
-                <img src="../assets/images/save-icon.png" />
+                <img src="images/save-icon.svg" />
               </div>
             </div>
           )}
@@ -270,7 +270,7 @@ const Compression = () => {
                 }}
               />
               <div className="flex flex-row items-start gap-3 mt-[25px] bg-[#9EE2FF4D] rounded-[12px] p-[24px]">
-                <img src="../assets/images/help.png" />
+                <img src="images/help.svg" />
                 <div>
                   <HeaderBold
                     content="How to get API?"
@@ -280,7 +280,7 @@ const Compression = () => {
                   <p className="m-[0px] mt-[5px] font-manropeMedium text-TypographyDarker md:text-bodyMd sm:text-bodySm text-bodyXs cursor-context-menu">
                     Visit our learning center to learn how to connect a website using an
                     API.{' '}
-                    <a className="font-manropeMedium text-Primary cursor-pointer">
+                    <a className="font-manropeMedium text-Primary" href="#">
                       Learn more
                     </a>
                   </p>

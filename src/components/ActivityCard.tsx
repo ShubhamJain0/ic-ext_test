@@ -23,14 +23,14 @@ export const ActivityCard: React.FC<TProps> = ({
   onClick,
 }) => {
   return (
-    <div className="grid grid-cols-7 gap-3 items-center">
+    <div className="grid grid-cols-7 gap-4 items-center">
       <div className="flex flex-row items-start gap-5 col-span-2">
         <div className={`bg-[#FFFFFF26] rounded-[100px] p-[12px]`}>
-          <img src="../../assets/images/setting.png" />
+          <img src="images/setting.svg" />
         </div>
         <div>
           <BodyText content={name} xlSize="xl:text-bodyMd" />
-          <div className="mt-[5px]">
+          <div className="mt-[4px]">
             <BodyText
               content={description}
               xlSize="xl:text-bodyXs"
@@ -107,7 +107,7 @@ export const ActivityCard: React.FC<TProps> = ({
       </div>
       <div className="justify-self-center">
         <div className="flex flex-row gap-3 bg-[#FFFFFF1F] rounded-[9px] rounded-br-[0px] px-[8px] py-[6px] items-center">
-          <img src="../../assets/images/images-stack.png" />
+          <img src="images/images-stack.svg" />
           <BodyText
             content={imageCount?.toString()!}
             xlSize="xl:text-bodySm"

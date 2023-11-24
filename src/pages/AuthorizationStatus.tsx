@@ -6,7 +6,7 @@ import { getSiteToken } from '../utils/apis';
 
 const AuthorizationStatus = () => {
   //based on query params show success/failure and update db with code
-  const [statusData, setStatus] = useState<any>(null);
+  const [statusData, setStatus] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
   const code = location.search.split('?code=');
@@ -31,7 +31,7 @@ const AuthorizationStatus = () => {
   }, [xCode]);
 
   const handleBtnClick = async () => {
-    // console.log('window', window.webflow);
+    console.log('window', window.webflow);
     //@ts-ignore
     //const siteInfo = await window.webflow.getSiteInfo();
     const siteInfo = { siteId: statusData?.grantedSites[0].id };
@@ -45,7 +45,7 @@ const AuthorizationStatus = () => {
 
       <p>Please note the following sites have being granted the access:</p>
       {statusData && statusData?.grantedSites && statusData?.grantedSites.length
-        ? statusData?.grantedSites.map((site: any, key: any) => (
+        ? statusData?.grantedSites.map((site, key) => (
             <div key={key}>
               <h3>{site.displayName}</h3>
               <img

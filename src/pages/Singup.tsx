@@ -82,12 +82,9 @@ const Singup = () => {
       <div className="relative flex flex-col basis-1/2 p-20 bg-gradient-to-r from-darkBlue from-0.01% to-veryDarkBlue to-99.99% overflow-hidden">
         <div className="basis-4/5">
           <div className="absolute -bottom-40 left-0 ">
-            <img src="../assets/images/octo-bg.png" style={{ width: '100vw' }} />
+            <img src="images/octo-bg.png" style={{ width: '100vw' }} />
           </div>
-          <img
-            src="../assets/images/octo-optimizer-logo.png"
-            style={{ height: '62px' }}
-          />
+          <img src="images/octo-white.svg" style={{ height: '62px' }} />
           <div className="mt-[65px]">
             <Header content={`Unlock effortless\nimage optimization.`} />
           </div>
@@ -96,9 +93,13 @@ const Singup = () => {
           </div>
         </div>
         <div style={{ zIndex: 1 }} className="flex flex-row">
-          <img src="../assets/images/octopus.png" />
+          <img src="images/octopus.svg" />
           <div className="-ml-10 mt-5">
-            <HelpTag text="Curious about how it works?" linkText="Read our guide" />
+            <HelpTag
+              text="Curious about how it works?"
+              link="#"
+              linkText="Read our guide"
+            />
           </div>
         </div>
       </div>
@@ -175,10 +176,7 @@ const Singup = () => {
             color="text-TypographyDark"
             xlSize="xl:text-bodyLg"
           />
-          <a
-            className="text-Primary text-bodyMd cursor-pointer"
-            onClick={() => navigate('/login')}
-          >
+          <a className="text-Primary text-bodyMd" href="/login">
             Login
           </a>
         </div>

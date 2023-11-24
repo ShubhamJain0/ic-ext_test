@@ -16,16 +16,16 @@ export const ConnectionCard: React.FC<TProps> = ({
 }) => {
   return (
     <div
-      className="bg-[#00000033] rounded-[16px] rounded-br-[0px] overflow-hidden cursor-pointer"
+      className="bg-[#00000033] rounded-[16px] rounded-br-[0px] overflow-hidden cursor-pointer shadow-[0px_4px_35px_0px_#FFFFFF0F]"
       onClick={onClick}
     >
-      <img src={image_url} />
+      <img src={image_url} style={{ width: '100%' }} />
       <div className="px-[20px] pb-[16px]">
         <div className="mt-[20px]">
           <BodyText content={name} xlSize="xl:text-bodyMd" lgSize="lg:text-bodyMd" />
         </div>
         {activity && (
-          <div className="mt-[5px]">
+          <div className="mt-[4px]">
             <BodyText
               content={activity}
               color="text-[#BFC2C7]"

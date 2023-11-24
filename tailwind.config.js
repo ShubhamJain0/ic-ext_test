@@ -19,7 +19,9 @@ module.exports = {
         SemanticsRed: '#E01F5B',
         SemanticsYellow: '#FFDC82',
         Gray: '#96979C',
-        TypographyDarker: "#474A53"
+        TypographyDarker: '#474A53',
+        BtnHover: '#FFFFFF2E',
+        BtnPressed: '#00000066',
       },
       fontFamily: {
         satoshiMedium: ['satoshi-medium', 'sans-serif'],

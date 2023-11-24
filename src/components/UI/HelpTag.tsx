@@ -6,11 +6,11 @@ interface HelpTagProps {
   link?: string;
 }
 
-export const HelpTag: React.FC<HelpTagProps> = ({ text, link = '', linkText }) => {
+export const HelpTag: React.FC<HelpTagProps> = ({ text, link = '#', linkText }) => {
   return (
     <div className="flex flex-row flex-wrap gap-2 items-start justify-center bg-Secondary rounded-[40px] px-[18px] py-[12px]">
       <div className="flex flex-row items-start gap-2">
-        <img src="../../../assets/images/help.png" alt="help" />
+        <img src="images/help.svg" alt="help" />
         <p className="text-TypographyDark m-[0px] font-manropeRegular text-bodySm">
           {text}
         </p>

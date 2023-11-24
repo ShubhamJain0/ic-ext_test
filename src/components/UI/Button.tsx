@@ -25,10 +25,14 @@ export const Button: React.FC<ButtonProps> = ({
       className={`font-satoshiMedium ${
         size === 'medium'
           ? `sm:text-bodySm text-bodyXs ${
-              disabled ? 'text-Gray bg-TypographyLight' : 'text-white bg-Primary'
+              disabled
+                ? 'text-Gray bg-TypographyLight'
+                : 'text-white bg-Primary bg-gradient-to-b from-Primary to-Primary active:from-BtnPressed active:to-BtnPressed hover:from-BtnHover hover:to-BtnHover'
             } rounded-[26px] px-[20px] py-[8px]`
           : `md:text-bodyMd sm:text-bodySm text-bodyXs ${
-              disabled ? 'text-Gray bg-TypographyLight' : 'text-white bg-Primary'
+              disabled
+                ? 'text-Gray bg-TypographyLight'
+                : 'text-white bg-Primary bg-gradient-to-b from-Primary to-Primary active:from-BtnPressed active:to-BtnPressed hover:from-BtnHover hover:to-BtnHover'
             } rounded-[44px] px-[40px] py-[18px]`
       } ${
         topShadow
