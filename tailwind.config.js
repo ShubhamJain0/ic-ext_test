@@ -42,6 +42,13 @@ module.exports = {
         bodySm: ['14px', '20px'],
         bodyXs: ['12px', '18px'],
       },
+      backgroundSize: {
+        'size-900': '900% 900%',
+      },
+      backgroundPosition: {
+        'pos-0': '0% 0%',
+        'pos-100': '100% 100%',
+      },
     },
   },
   plugins: [],

@@ -54,7 +54,7 @@ export const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div className="relative flex flex-col mb-[5px]">
+    <div className="relative flex flex-col mb-[15px]">
       <label className="text-TypographyDark font-satoshiMedium text-bodyLg">
         {label}
       </label>
@@ -89,7 +89,7 @@ export const Input: React.FC<InputProps> = ({
         />
       </div>
       <p
-        className={`text-errorRed sm:text-bodySm xs:text-bodyXs font-manropeRegular m-0 mt-[10px] absolute -bottom-[22px] opacity-${
+        className={`text-errorRed sm:text-bodySm xs:text-bodyXs font-manropeRegular m-0 mt-[10px] absolute -bottom-[25px] opacity-${
           errorText ? '1' : '0'
         }`}
       >

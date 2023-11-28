@@ -76,9 +76,8 @@ const Compression = () => {
 
   return (
     <div className="flex flex-row min-h-screen max-h-screen">
-      <div className="relative flex flex-col basis-1/2 p-20 bg-gradient-to-r from-darkBlue from-0.01% to-veryDarkBlue to-99.99% overflow-hidden">
-        <div className="basis-4/5">
-          Stepper
+      <div className="relative flex basis-1/2 px-[72px] py-[10vh] pb-[3vh] bg-gradient-to-r from-darkBlue from-0.01% to-veryDarkBlue to-99.99% overflow-hidden">
+        <div className="relative flex flex-col justify-between max-w-[740px] mx-auto">
           <div className="flex flex-row gap-5 items-center">
             <div className="flex flex-row gap-[8px] items-center">
               <div className="bg-Primary rounded-[40px] w-[40px] h-[40px] flex justify-center items-center">
@@ -114,32 +113,36 @@ const Compression = () => {
               />
             </div>
           </div>
-          <div className="mt-[65px]">
+          <div className="mt-[5vh]">
             <Header content={`Choose your preferred mode to begin.`} />
           </div>
-          <div className="mt-[20px]">
+          <div className="mt-[3vh]">
             <BodyText
               content="Begin by choosing the website you wish to optimize."
               opacity="opacity-70"
             />
           </div>
-        </div>
-        <div style={{ zIndex: 1 }} className="flex flex-row">
-          <img src="images/octopus.svg" />
-          <div className="-ml-10 mt-5">
-            <HelpTag text="Don't know how to begin?" link="#" linkText="Read our guide" />
+          <div className="flex flex-row mt-auto">
+            <img src="images/octopus.svg" />
+            <div className="-ml-10 mt-5">
+              <HelpTag
+                text="Don't know how to begin?"
+                link="#"
+                linkText="Read our guide"
+              />
+            </div>
           </div>
         </div>
       </div>
       <div className="relative basis-1/2 overflow-y-auto" ref={ref}>
-        <div className="p-20">
+        <div className="px-[72px] py-[10vh] pb-[16vh] max-w-[740px] mx-auto">
           <div
             onClick={() => setSelectedMode('API')}
             className={`border-[1px] ${
               selectedMode === 'API'
                 ? 'border-Primary bg-[#4519E80A]'
                 : 'border-TypographyLight bg-white'
-            } p-[24px] rounded-[12px] flex flex-row gap-5 items-center justify-between cursor-pointer mb-[25px]`}
+            } p-[24px] rounded-[12px] flex flex-row gap-5 items-center justify-between cursor-pointer mb-[25px] hover:border-Primary hover:bg-[#4519E80A] transition-all duration-400`}
           >
             <div className="flex flex-row items-center gap-5">
               {selectedMode === 'API' ? (
@@ -175,7 +178,7 @@ const Compression = () => {
               selectedMode === 'Webflow'
                 ? 'border-Primary bg-[#4519E80A]'
                 : 'border-TypographyLight bg-white'
-            } p-[24px] rounded-[12px] flex flex-row gap-5 items-center justify-between cursor-pointer mb-[25px]`}
+            } p-[24px] rounded-[12px] flex flex-row gap-5 items-center justify-between cursor-pointer mb-[25px] hover:border-Primary hover:bg-[#4519E80A] transition-all duration-400`}
           >
             <div className="flex flex-row items-center gap-5">
               {selectedMode === 'Webflow' ? (
@@ -212,7 +215,7 @@ const Compression = () => {
                 selectedMode === 'Connections'
                   ? 'border-Primary bg-[#4519E80A]'
                   : 'border-TypographyLight bg-white'
-              } p-[24px] rounded-[12px] flex flex-row gap-5 items-center justify-between cursor-pointer mb-[25px]`}
+              } p-[24px] rounded-[12px] flex flex-row gap-5 items-center justify-between cursor-pointer mb-[25px] hover:border-Primary hover:bg-[#4519E80A] transition-all duration-400`}
             >
               <div className="flex flex-row items-center gap-5">
                 {selectedMode === 'Connections' ? (
@@ -269,7 +272,7 @@ const Compression = () => {
                   }
                 }}
               />
-              <div className="flex flex-row items-start gap-3 mt-[25px] bg-[#9EE2FF4D] rounded-[12px] p-[24px]">
+              <div className="flex flex-row items-start gap-3 mt-[56px] bg-[#9EE2FF4D] rounded-[12px] p-[24px]">
                 <img src="images/help.svg" />
                 <div>
                   <HeaderBold
@@ -310,39 +313,45 @@ const Compression = () => {
             />
           ) : null}
         </div>
+        {/* Action buttons */}
         <div
-          className={`${position} flex flex-row flex-wrap items-center justify-between gap-5 bottom-0 left-0 right-0 border-t-[1px] border-TypographyLight bg-white px-[72px] py-[24px] min-h-[120px]`}
+          className={`${position} bottom-0 left-0 right-0 border-t-[1px] border-TypographyLight bg-white`}
         >
-          <div onClick={() => navigate('/dashboard')} className="cursor-pointer">
-            <Header
-              content="Back to dashboard"
-              color="text-Primary"
-              lgSize="lg:text-bodyLg"
-              mdSize="md:text-bodyMd"
-              smSize="sm:text-bodySm"
-            />
-          </div>
-          <div>
-            {selectedMode === 'API' ? (
-              <Button
-                disabled={!apiKey}
-                label="Connect API"
-                onClick={() => {
-                  setErrorText({ ...errorText, apiKey: 'Invalid API' });
-                  setApiKeyInputIconColor('red');
-                }}
-                type="button"
+          <div className="max-w-[740px] mx-auto px-[72px] py-[24px] min-h-[120px] flex flex-row flex-wrap items-center justify-between gap-5">
+            <div
+              onClick={() => navigate('/dashboard')}
+              className="cursor-pointer opacity-80 hover:opacity-100 transition-all duration-400"
+            >
+              <Header
+                content="Back to dashboard"
+                color="text-Primary"
+                lgSize="lg:text-bodyLg"
+                mdSize="md:text-bodyMd"
+                smSize="sm:text-bodySm"
               />
-            ) : selectedMode === 'Webflow' ? (
-              <Button label="Authorize Webflow" onClick={() => {}} type="button" />
-            ) : (
-              <Button
-                label="Proceed"
-                onClick={() => {}}
-                type="button"
-                disabled={!selectedConnection}
-              />
-            )}
+            </div>
+            <div>
+              {selectedMode === 'API' ? (
+                <Button
+                  disabled={!apiKey}
+                  label="Connect API"
+                  onClick={() => {
+                    setErrorText({ ...errorText, apiKey: 'Invalid API' });
+                    setApiKeyInputIconColor('red');
+                  }}
+                  type="button"
+                />
+              ) : selectedMode === 'Webflow' ? (
+                <Button label="Authorize Webflow" onClick={() => {}} type="button" />
+              ) : (
+                <Button
+                  label="Proceed"
+                  onClick={() => {}}
+                  type="button"
+                  disabled={!selectedConnection}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

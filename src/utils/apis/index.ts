@@ -194,11 +194,11 @@ export const getRecentConnections = async (
     //Remove this after logic added
     onSuccess({
       data: [
-        // {
-        //   image_url: 'images/thumbnail.svg',
-        //   name: 'Adelfox - Engage your audience',
-        //   activity: 'opened just now',
-        // },
+        {
+          image_url: 'images/thumbnail.svg',
+          name: 'Adelfox - Engage your audience',
+          activity: 'opened just now',
+        },
       ],
     });
   } catch (error) {
@@ -230,33 +230,33 @@ export const getRecentActivities = async (
     //Remove this after logic added
     onSuccess({
       data: [
-        {
-          status: 'inProgress',
-          name: 'Adelfox - Engage your audience',
-          description: 'OPT - 6725 657 345',
-          date: 'Jan 23, 2023',
-          imageCount: '5',
-          percentageSaved: '50',
-          sizeSaved: '9MB',
-        },
-        {
-          status: 'failed',
-          name: 'Noon - Make it awesome',
-          description: 'OPT - 6725 657 345',
-          date: 'Mar 1, 2023',
-          imageCount: '1',
-          percentageSaved: '20',
-          sizeSaved: '2MB',
-        },
-        {
-          status: 'completed',
-          name: 'Tappa',
-          description: 'OPT - 6725 657 345',
-          date: 'Mar 1, 2023',
-          imageCount: '2',
-          percentageSaved: '90',
-          sizeSaved: '10MB',
-        },
+        // {
+        //   status: 'inProgress',
+        //   name: 'Adelfox - Engage your audience',
+        //   description: 'OPT - 6725 657 345',
+        //   date: 'Jan 23, 2023',
+        //   imageCount: '5',
+        //   percentageSaved: '50',
+        //   sizeSaved: '9MB',
+        // },
+        // {
+        //   status: 'failed',
+        //   name: 'Noon - Make it awesome',
+        //   description: 'OPT - 6725 657 345',
+        //   date: 'Mar 1, 2023',
+        //   imageCount: '1',
+        //   percentageSaved: '20',
+        //   sizeSaved: '2MB',
+        // },
+        // {
+        //   status: 'completed',
+        //   name: 'Tappa',
+        //   description: 'OPT - 6725 657 345',
+        //   date: 'Mar 1, 2023',
+        //   imageCount: '2',
+        //   percentageSaved: '90',
+        //   sizeSaved: '10MB',
+        // },
       ],
     });
   } catch (error) {

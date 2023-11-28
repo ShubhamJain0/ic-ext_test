@@ -27,12 +27,12 @@ export const Button: React.FC<ButtonProps> = ({
           ? `sm:text-bodySm text-bodyXs ${
               disabled
                 ? 'text-Gray bg-TypographyLight'
-                : 'text-white bg-Primary bg-gradient-to-b from-Primary to-Primary active:from-BtnPressed active:to-BtnPressed hover:from-BtnHover hover:to-BtnHover'
+                : 'text-white bg-Primary bg-gradient-to-b from-Primary to-BtnHover active:from-BtnPressed active:to-BtnPressed bg-pos-0 bg-size-900 hover:bg-pos-100 transition-all duration-[400ms]'
             } rounded-[26px] px-[20px] py-[8px]`
           : `md:text-bodyMd sm:text-bodySm text-bodyXs ${
               disabled
                 ? 'text-Gray bg-TypographyLight'
-                : 'text-white bg-Primary bg-gradient-to-b from-Primary to-Primary active:from-BtnPressed active:to-BtnPressed hover:from-BtnHover hover:to-BtnHover'
+                : 'text-white bg-Primary bg-gradient-to-b from-Primary to-BtnHover active:from-BtnPressed active:to-BtnPressed bg-pos-0 bg-size-900 hover:bg-pos-100 transition-all duration-[400ms]'
             } rounded-[44px] px-[40px] py-[18px]`
       } ${
         topShadow
