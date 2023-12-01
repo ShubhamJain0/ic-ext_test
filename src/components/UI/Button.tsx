@@ -1,4 +1,5 @@
 import React from 'react';
+import { RightArrow } from '../svg-components';
 
 interface ButtonProps {
   label: string;
@@ -8,6 +9,7 @@ interface ButtonProps {
   className?: string;
   size?: 'medium' | 'large';
   topShadow?: boolean;
+  showRightIcon?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -18,11 +20,12 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'large',
   topShadow,
   disabled = false,
+  showRightIcon,
 }) => {
   return (
     <button
       disabled={disabled}
-      className={`font-satoshiMedium ${
+      className={`font-satoshiMedium text-left ${
         size === 'medium'
           ? `sm:text-bodySm text-bodyXs ${
               disabled
@@ -38,11 +41,14 @@ export const Button: React.FC<ButtonProps> = ({
         topShadow
           ? 'shadow-[inset_1.5px_1.5px_0px_0px_#FFFFFF33]'
           : 'shadow-[inset_-1.5px_-1.5px_0px_0px_#FFFFFF33]'
-      } ${className}`}
+      }
+      ${showRightIcon && 'flex flex-row gap-[30px] justify-between items-center'}
+      ${className}`}
       onClick={onClick}
       type={type}
     >
       {label}
+      {showRightIcon && <RightArrow fillColor="white" />}
     </button>
   );
 };

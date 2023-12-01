@@ -14,6 +14,7 @@ interface DropdownProps {
   placeholder: string;
   onOptionSelect: (param: DropdownOptions) => void;
   options: DropdownOptions[];
+  value: DropdownOptions;
   required?: boolean;
   errorText?: string;
   icon?: 'hashtag' | 'user-avatar' | 'email' | 'password' | 'folder';
@@ -36,12 +37,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
   onBlur,
   focusClasses,
   options,
+  value,
 }) => {
   const inputRef: any = useRef(null);
   const [focusEffects, setFocusEffects] = useState<string>();
   const [rotateExpandIcon, setRotateExpandIcon] = useState('0');
   const [showOptions, setShowOptions] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
 
   //The below code is used to add focus effects to the input field's outer div when input is focused
   const handleFocus = () => {
@@ -65,7 +66,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const handleOptionSelect = (option: DropdownOptions) => {
     handleBlur();
     onOptionSelect(option);
-    setSelectedOption(option.label);
     //Blur the select div after selecting an option
     inputRef?.current?.blur();
   };
@@ -106,8 +106,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
             <Folder fillColor={iconColor} />
           ) : null)}
         <BodyText
-          content={selectedOption || placeholder}
-          color={selectedOption ? 'text-TypographyDark' : 'text-TypographyDarker'}
+          content={value?.label || placeholder}
+          color={value?.label ? 'text-TypographyDark' : 'text-TypographyDarker'}
           xlSize="xl:text-bodyLg"
           lgSize="lg:text-bodyLg"
         />
@@ -132,17 +132,19 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   lgSize="lg:text-bodyMd"
                   mediumFont
                 />
-                <div className="px-[12px] py-[6px] rounded-[4px] bg-[#F4F4F5] group-hover:bg-[#ffffff]">
-                  <BodyText
-                    content={option.tag!}
-                    color="text-TypographyDark"
-                    xlSize="xl:text-bodyXs"
-                    lgSize="lg:text-bodyXs"
-                    mdSize="md:text-bodyXs"
-                    smSize="sm:text-bodyXs"
-                    xsSize="xs:text-bodyXs"
-                  />
-                </div>
+                {option.tag && (
+                  <div className="px-[12px] py-[6px] rounded-[4px] bg-[#F4F4F5] group-hover:bg-[#ffffff]">
+                    <BodyText
+                      content={option.tag}
+                      color="text-TypographyDark"
+                      xlSize="xl:text-bodyXs"
+                      lgSize="lg:text-bodyXs"
+                      mdSize="md:text-bodyXs"
+                      smSize="sm:text-bodyXs"
+                      xsSize="xs:text-bodyXs"
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>

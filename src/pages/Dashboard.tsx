@@ -17,8 +17,15 @@ const Dashboard = () => {
     window.history.replaceState({}, document.title);
   };
 
-  const onRecentConnectionClick = () => {
+  const onRecentConnectionClick = (connection: any) => {
     //Navigate to compression page
+    navigate('/select-website', {
+      state: {
+        hasRecentConnections: recentConnections.length,
+        step: 2,
+        selectedConnection: { label: connection?.name, value: connection?.id },
+      },
+    });
   };
 
   const onRecentActivityClick = () => {
@@ -178,7 +185,7 @@ const Dashboard = () => {
                     image_url={connection.image_url}
                     name={connection.name}
                     activity={connection.activity}
-                    onClick={() => onRecentConnectionClick()}
+                    onClick={() => onRecentConnectionClick(connection)}
                   />
                 ))}
               </div>

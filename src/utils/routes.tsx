@@ -7,7 +7,6 @@ import ErrorPage from '../pages/ErrorPage';
 import Login from '../pages/Login';
 import Singup from '../pages/Singup';
 import Welcome from '../pages/Welcome';
-import Email from '../pages/email';
 
 //use js closures to merge all routes, leverage useRoutes() hooks to create split routes using JS
 export const RootRoutes = [
@@ -62,11 +61,6 @@ export const AuthenticatedRootRoutes = [
   {
     path: '/select-website',
     element: Compression,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: '/email',
-    element: Email,
     errorElement: <ErrorPage />,
   },
 ];
