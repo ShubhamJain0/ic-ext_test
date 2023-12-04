@@ -16,6 +16,7 @@ interface BodyTextProps {
   opacity?: string;
   align?: string;
   mediumFont?: boolean;
+  truncate?: boolean;
 }
 
 export const BodyText: React.FC<BodyTextProps> = ({
@@ -29,12 +30,15 @@ export const BodyText: React.FC<BodyTextProps> = ({
   opacity = 'opacity-100',
   align = 'text-left',
   mediumFont,
+  truncate = false,
 }) => {
   return (
     <p
       className={`${color} ${align} ${
         mediumFont ? 'font-manropeMedium' : 'font-manropeRegular'
-      } ${xlSize} ${lgSize} ${mdSize} ${smSize} ${xsSize} m-[0px] text-bodyXs whitespace-pre-line ${opacity}`}
+      } ${xlSize} ${lgSize} ${mdSize} ${smSize} ${xsSize} m-[0px] text-bodyXs whitespace-pre-line ${opacity} ${
+        truncate && 'line-clamp-1'
+      }`}
     >
       {content}
     </p>

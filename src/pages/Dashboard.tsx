@@ -52,7 +52,11 @@ const Dashboard = () => {
   const onRecentActivitiesError = () => {};
 
   return (
-    <div className="relative flex flex-col min-h-screen">
+    <div
+      className={`relative flex flex-col min-h-screen ${
+        isFirstTimeUser && 'overflow-hidden max-h-[100vh]'
+      }`}
+    >
       {/* Bg Gradient */}
       <div className="absolute top-0 right-0 bottom-0 left-0 bg-gradient-to-b from-veryDarkBlue from-0.01% to-darkBlue to-99.99%" />
       {/* Bg Image */}
@@ -302,7 +306,11 @@ const Dashboard = () => {
         </div>
       </div>
       {/* Footer */}
-      <div className="absolute bottom-0 left-0 right-0 bg-[rgba(255,255,255,0.15)] backdrop-blur-[12px]">
+      <div
+        className={`${
+          isFirstTimeUser ? 'relative' : 'absolute'
+        } bottom-0 left-0 right-0 bg-[rgba(255,255,255,0.15)] backdrop-blur-[12px]`}
+      >
         <div className="flex flex-row gap-4 items-center justify-between px-[40px] py-[24px] max-w-[1440px] mx-auto min-[1440px]:px-[100px]">
           <div className="flex flex-row flex-wrap items-center gap-4">
             <BodyText

@@ -216,7 +216,11 @@ const Compression = () => {
     //Call api and if success
     if (true) {
       setSavedConnections([
-        { label: 'Noon - Make it awesome', tag: '1', value: 'id' },
+        {
+          label: 'Noon - Make it awesome',
+          tag: '1',
+          value: 'id',
+        },
         { label: 'Adelfox - Engage your audience', tag: '2', value: 'id2' },
         { label: 'Botly - Your Webflow Partner', tag: '2', value: 'id3' },
         { label: 'ThunderClap', tag: '2', value: 'id4' },
@@ -249,8 +253,13 @@ const Compression = () => {
       <div className="relative flex basis-1/2 px-[72px] py-[10vh] pb-[3vh] bg-gradient-to-r from-darkBlue from-0.01% to-veryDarkBlue to-99.99% overflow-hidden">
         <div className="relative flex flex-col justify-between max-w-[740px] mx-auto">
           <div className="flex flex-row gap-5 items-center">
-            <div className="flex flex-row gap-[8px] items-center">
-              <div className="bg-Primary rounded-[40px] w-[40px] h-[40px] flex justify-center items-center">
+            <div
+              className="flex flex-row gap-[8px] items-center cursor-pointer"
+              onClick={() => {
+                setStep(1);
+              }}
+            >
+              <div className="bg-Primary rounded-[40px] w-[40px] h-[40px] min-w-[40px] flex justify-center items-center">
                 <HeaderBold
                   content="1"
                   lgSize="lg:text-bodyMd"
@@ -266,8 +275,15 @@ const Compression = () => {
               />
             </div>
             <div className="h-[1.5px] bg-Secondary rounded-[15px] w-[15%] opacity-25"></div>
-            <div className="flex flex-row gap-[8px] items-center">
-              <div className="bg-[#FFFFFF26] rounded-[40px] w-[40px] h-[40px] flex justify-center items-center">
+            <div
+              className="flex flex-row gap-[8px] items-center cursor-pointer"
+              onClick={() => {
+                if (selectedConnection) {
+                  setStep(2);
+                }
+              }}
+            >
+              <div className="bg-[#FFFFFF26] rounded-[40px] w-[40px] h-[40px] min-w-[40px] flex justify-center items-center">
                 <HeaderBold
                   content="2"
                   lgSize="lg:text-bodyMd"
@@ -283,7 +299,7 @@ const Compression = () => {
               />
             </div>
           </div>
-          <div className="mt-[5vh]">
+          <div className="mt-[5vh] max-w-[600px]">
             <Header content={`Choose your preferred mode to begin.`} />
           </div>
           <div className="mt-[3vh]">
@@ -316,11 +332,11 @@ const Compression = () => {
           >
             <div className="flex flex-row items-center gap-5">
               {selectedMode === 'API' ? (
-                <div className="w-[24px] h-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
+                <div className="w-[24px] h-[24px] min-w-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
                   <img src="images/check.svg" />
                 </div>
               ) : (
-                <div className="w-[24px] h-[24px] rounded-[100px] bg-TypographyLight"></div>
+                <div className="w-[24px] h-[24px] min-w-[24px] rounded-[100px] bg-TypographyLight"></div>
               )}
 
               <div>
@@ -352,11 +368,11 @@ const Compression = () => {
           >
             <div className="flex flex-row items-center gap-5">
               {selectedMode === 'Webflow' ? (
-                <div className="w-[24px] h-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
+                <div className="w-[24px] h-[24px] min-w-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
                   <img src="images/check.svg" />
                 </div>
               ) : (
-                <div className="w-[24px] h-[24px] rounded-[100px] bg-TypographyLight"></div>
+                <div className="w-[24px] h-[24px] min-w-[24px] rounded-[100px] bg-TypographyLight"></div>
               )}
 
               <div>
@@ -389,11 +405,11 @@ const Compression = () => {
             >
               <div className="flex flex-row items-center gap-5">
                 {selectedMode === 'Connections' ? (
-                  <div className="w-[24px] h-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
+                  <div className="w-[24px] h-[24px] min-w-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
                     <img src="images/check.svg" />
                   </div>
                 ) : (
-                  <div className="w-[24px] h-[24px] rounded-[100px] bg-TypographyLight"></div>
+                  <div className="w-[24px] h-[24px] min-w-[24px] rounded-[100px] bg-TypographyLight"></div>
                 )}
 
                 <div>
@@ -564,7 +580,10 @@ const Compression = () => {
       <div className="relative flex basis-1/2 px-[72px] py-[10vh] pb-[3vh] bg-gradient-to-r from-darkBlue from-0.01% to-veryDarkBlue to-99.99% overflow-hidden">
         <div className="relative flex flex-col justify-between max-w-[740px] mx-auto">
           <div className="flex flex-row gap-5 items-center">
-            <div className="flex flex-row gap-[8px] items-center">
+            <div
+              className="flex flex-row gap-[8px] items-center cursor-pointer"
+              onClick={() => setStep(1)}
+            >
               <div className="bg-Primary rounded-[40px] w-[40px] h-[40px] flex justify-center items-center">
                 <HeaderBold
                   content="1"
@@ -581,7 +600,12 @@ const Compression = () => {
               />
             </div>
             <div className="h-[1.5px] bg-Secondary rounded-[15px] w-[15%]"></div>
-            <div className="flex flex-row gap-[8px] items-center">
+            <div
+              className="flex flex-row gap-[8px] items-center cursor-pointer"
+              onClick={() => {
+                if (selectedConnection) setStep(2);
+              }}
+            >
               <div className="bg-Primary rounded-[40px] w-[40px] h-[40px] flex justify-center items-center">
                 <HeaderBold
                   content="2"
@@ -598,7 +622,7 @@ const Compression = () => {
               />
             </div>
           </div>
-          <div className="mt-[5vh]">
+          <div className="mt-[5vh] max-w-[600px]">
             <Header content={`Select conversion type and CMS collection.`} />
           </div>
           <div className="mt-[3vh]">
@@ -627,13 +651,16 @@ const Compression = () => {
             }
           >
             <div className="flex flex-row gap-4 items-center justify-between">
-              <Folder fillColor={'#4519E8'} />
+              <div>
+                <Folder fillColor={'#4519E8'} />
+              </div>
               <BodyText
                 content={selectedConnection?.label}
                 xlSize="xl:text-bodyLg"
                 lgSize="lg:text-bodyLg"
                 mediumFont
                 color="text-TypographyDark"
+                truncate
               />
             </div>
             <div className="cursor-pointer" onClick={() => handleStepBack()}>

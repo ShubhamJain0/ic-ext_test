@@ -23,7 +23,7 @@ export const EstimationModal: React.FC<EstimationModalProps> = ({
         !isVisible && 'hidden'
       } flex items-center justify-center fixed top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.7)]`}
     >
-      <div className="p-[32px] bg-white rounded-[12px] flex flex-col max-w-[38vw] max-h-[72vh] overflow-y-auto">
+      <div className="p-[32px] bg-white rounded-[12px] flex flex-col w-[100%] max-w-[580px] max-h-[72vh] overflow-y-auto">
         <div className="flex flex-row gap-4 items-stretch justify-between">
           <div className="w-full bg-gradient-to-b from-veryDarkBlue from-0.01% to-darkBlue to-99.99% rounded-[12px] p-[20px]">
             <div className="w-[3vw] h-[4px] bg-Secondary rounded-[19px]"></div>

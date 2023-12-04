@@ -20,7 +20,7 @@ export const ConversionCard: React.FC<ConversionCardProps> = ({
     <div
       className={`p-[24px] border-[1px] ${
         isSelected ? 'border-Primary bg-[#4519E80A]' : 'border-TypographyLight'
-      } rounded-[12px] cursor-pointer hover:border-Primary hover:bg-[#4519E80A] transition-all duration-400`}
+      } rounded-[12px] cursor-pointer hover:border-Primary hover:bg-[#4519E80A] transition-all duration-400 overflow-hidden`}
       onClick={onClick}
     >
       <div className="flex flex-row gap-4 items-center justify-between">
@@ -40,11 +40,11 @@ export const ConversionCard: React.FC<ConversionCardProps> = ({
           <div></div>
         )}
         {isSelected ? (
-          <div className="w-[24px] h-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
+          <div className="w-[24px] h-[24px] min-w-[24px] rounded-[100px] bg-Primary flex justify-center items-center">
             <img src="images/check.svg" />
           </div>
         ) : (
-          <div className="w-[24px] h-[24px] rounded-[100px] bg-TypographyLight"></div>
+          <div className="w-[24px] h-[24px] min-w-[24px] rounded-[100px] bg-TypographyLight"></div>
         )}
       </div>
       <div className="mt-[18px]">
@@ -54,7 +54,7 @@ export const ConversionCard: React.FC<ConversionCardProps> = ({
           color="text-TypographyDark"
         />
       </div>
-      <div className="mt-[4px]">
+      <div className="mt-[4px] max-w-[90%]">
         <BodyText
           content={description}
           xlSize="xl:text-bodySm"

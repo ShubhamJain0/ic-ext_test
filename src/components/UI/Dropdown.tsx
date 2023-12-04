@@ -93,23 +93,26 @@ export const Dropdown: React.FC<DropdownProps> = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
       >
-        {icon &&
-          (icon === 'user-avatar' ? (
-            <UserAvatar fillColor={iconColor} />
-          ) : icon === 'email' ? (
-            <Email fillColor={iconColor} />
-          ) : icon === 'password' ? (
-            <Password fillColor={iconColor} />
-          ) : icon === 'hashtag' ? (
-            <Hashtag fillColor={iconColor} />
-          ) : icon === 'folder' ? (
-            <Folder fillColor={iconColor} />
-          ) : null)}
+        <div>
+          {icon &&
+            (icon === 'user-avatar' ? (
+              <UserAvatar fillColor={iconColor} />
+            ) : icon === 'email' ? (
+              <Email fillColor={iconColor} />
+            ) : icon === 'password' ? (
+              <Password fillColor={iconColor} />
+            ) : icon === 'hashtag' ? (
+              <Hashtag fillColor={iconColor} />
+            ) : icon === 'folder' ? (
+              <Folder fillColor={iconColor} />
+            ) : null)}
+        </div>
         <BodyText
           content={value?.label || placeholder}
           color={value?.label ? 'text-TypographyDark' : 'text-TypographyDarker'}
           xlSize="xl:text-bodyLg"
           lgSize="lg:text-bodyLg"
+          truncate
         />
         <div className="flex flex-1 justify-end">
           <div className={`transition-all rotate-${rotateExpandIcon}`}>
