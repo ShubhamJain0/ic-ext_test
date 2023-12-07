@@ -211,6 +211,10 @@ const Compression = () => {
     setIsEstimationModalVisible(true);
   };
 
+  const handleOptimizeImages = () => {
+    navigate('/optimize');
+  };
+
   //Call recent/saved connections API
   useEffect(() => {
     //Call api and if success
@@ -278,7 +282,7 @@ const Compression = () => {
             <div
               className="flex flex-row gap-[8px] items-center cursor-pointer"
               onClick={() => {
-                if (selectedConnection) {
+                if (cmsCollections.length > 0) {
                   setStep(2);
                 }
               }}
@@ -603,7 +607,7 @@ const Compression = () => {
             <div
               className="flex flex-row gap-[8px] items-center cursor-pointer"
               onClick={() => {
-                if (selectedConnection) setStep(2);
+                if (cmsCollections.length) setStep(2);
               }}
             >
               <div className="bg-Primary rounded-[40px] w-[40px] h-[40px] flex justify-center items-center">
@@ -768,7 +772,7 @@ const Compression = () => {
         estimated_time={'1 min 30 sec'}
         total_images={3}
         onCancel={() => setIsEstimationModalVisible(false)}
-        onSubmit={() => {}}
+        onSubmit={() => handleOptimizeImages()}
       />
     </div>
   );

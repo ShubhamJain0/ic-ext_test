@@ -231,7 +231,7 @@ export const getRecentActivities = async (
     onSuccess({
       data: [
         {
-          status: 'inProgress',
+          status: 'inprogress',
           name: 'Adelfox - Engage your audience',
           description: 'OPT - 6725 657 345',
           date: 'Jan 23, 2023',
@@ -240,7 +240,7 @@ export const getRecentActivities = async (
           sizeSaved: '9MB',
         },
         {
-          status: 'failed',
+          status: 'failure',
           name: 'Noon - Make it awesome',
           description: 'OPT - 6725 657 345',
           date: 'Mar 1, 2023',
@@ -249,7 +249,7 @@ export const getRecentActivities = async (
           sizeSaved: '2MB',
         },
         {
-          status: 'completed',
+          status: 'success',
           name: 'Tappa',
           description: 'OPT - 6725 657 345',
           date: 'Mar 1, 2023',

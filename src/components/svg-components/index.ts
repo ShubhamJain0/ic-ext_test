@@ -7,6 +7,8 @@ import { Expand } from './expand';
 import { Info } from './info';
 import { BackChevron } from './back-chevron';
 import { RightArrow } from './right-arrow';
+import { HourGlass } from './hour-glass';
+import { Help } from './help';
 
 export {
   Hashtag,
@@ -18,4 +20,6 @@ export {
   Info,
   BackChevron,
   RightArrow,
+  HourGlass,
+  Help,
 };

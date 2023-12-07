@@ -5,6 +5,7 @@ import Compression from '../pages/Compression';
 import Dashboard from '../pages/Dashboard';
 import ErrorPage from '../pages/ErrorPage';
 import Login from '../pages/Login';
+import Result from '../pages/Result';
 import Singup from '../pages/Singup';
 import Welcome from '../pages/Welcome';
 
@@ -61,6 +62,11 @@ export const AuthenticatedRootRoutes = [
   {
     path: '/select-website',
     element: Compression,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/optimize',
+    element: Result,
     errorElement: <ErrorPage />,
   },
 ];

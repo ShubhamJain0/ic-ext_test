@@ -2,7 +2,7 @@ import React from 'react';
 import { BodyText, Button, HeaderBold } from './UI';
 
 type TProps = {
-  status: 'inProgress' | 'completed' | 'failed';
+  status: 'inprogress' | 'success' | 'failure';
   name: string;
   description: string;
   date: string;
@@ -45,18 +45,18 @@ export const ActivityCard: React.FC<TProps> = ({
       <div className="justify-self-center">
         <div
           className={`${
-            status === 'inProgress'
+            status === 'inprogress'
               ? 'bg-[#FFDC821F] border-[#FFDC8240]'
-              : status === 'completed'
+              : status === 'success'
               ? 'bg-[#00D64B1F] border-[#00D64B40]'
               : 'bg-[#E01F5B1F] border-[#E01F5B40]'
           } rounded-[4px] px-[12px] py-[6px] border-[1px]`}
         >
           <BodyText
             content={
-              status === 'inProgress'
+              status === 'inprogress'
                 ? 'In Progress'
-                : status === 'completed'
+                : status === 'success'
                 ? 'Finished'
                 : 'Failed'
             }
@@ -65,9 +65,9 @@ export const ActivityCard: React.FC<TProps> = ({
             mdSize="md:text-bodyXs"
             align="text-center"
             color={
-              status === 'inProgress'
+              status === 'inprogress'
                 ? 'text-SemanticsYellow'
-                : status === 'completed'
+                : status === 'success'
                 ? 'text-SemanticsGreen'
                 : 'text-SemanticsRed'
             }
@@ -117,7 +117,7 @@ export const ActivityCard: React.FC<TProps> = ({
         </div>
       </div>
       <div className="cursor-pointer flex justify-end" onClick={onClick}>
-        <Button label="View" type="button" size="medium" topShadow />
+        <Button label="View" type="button" size="medium" />
       </div>
     </div>
   );

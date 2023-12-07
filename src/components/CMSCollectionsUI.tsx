@@ -67,7 +67,7 @@ export const CMSCollectionsUI: React.FC<TProps> = ({ collections, onSelect, valu
                 {/* Checkbox */}
                 <div
                   onClick={() => onSelect(field, collection.collection_name)}
-                  className={`w-[20px] h-[20px] flex items-center justify-center rounded-[4px] cursor-pointer ${
+                  className={`min-w-[20px] w-[20px] h-[20px] flex items-center justify-center rounded-[4px] cursor-pointer ${
                     checkIfFieldIsSelected(field, collection.collection_name)
                       ? 'bg-Primary'
                       : 'bg-TypographyLight'

@@ -28,8 +28,9 @@ const Dashboard = () => {
     });
   };
 
-  const onRecentActivityClick = () => {
+  const onRecentActivityClick = (activity: any) => {
     //Navigate to success page
+    navigate('/optimize', { state: { data: { status: activity?.status } } });
   };
 
   useEffect(() => {
@@ -293,7 +294,7 @@ const Dashboard = () => {
                       imageCount={activity.imageCount || 0}
                       percentageSaved={activity.percentageSaved}
                       sizeSaved={activity.sizeSaved}
-                      onClick={() => onRecentActivityClick()}
+                      onClick={() => onRecentActivityClick(activity)}
                     />
                     {index !== recentActivity.length - 1 && (
                       <div className="w-full h-[1px] bg-[#F4F4F5] opacity-10 my-[24px]"></div>
