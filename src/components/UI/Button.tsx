@@ -27,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
   return variant === 'primary' ? (
     <button
       disabled={disabled}
-      className={`font-satoshiMedium text-center border-[1px] border-solid border-transparent ${
+      className={`font-satoshiMedium text-center ${
         size === 'medium'
           ? `sm:text-bodySm text-bodyXs ${
               disabled
