@@ -17,6 +17,8 @@ interface BodyTextProps {
   align?: string;
   mediumFont?: boolean;
   truncate?: boolean;
+  linkText?: string;
+  onLinkClick?: () => void;
 }
 
 export const BodyText: React.FC<BodyTextProps> = ({
@@ -31,6 +33,8 @@ export const BodyText: React.FC<BodyTextProps> = ({
   align = 'text-left',
   mediumFont,
   truncate = false,
+  linkText,
+  onLinkClick,
 }) => {
   return (
     <p
@@ -41,6 +45,14 @@ export const BodyText: React.FC<BodyTextProps> = ({
       }`}
     >
       {content}
+      {linkText && (
+        <span
+          onClick={onLinkClick}
+          className="ml-[4px] text-Primary font-satoshiMedium cursor-pointer"
+        >
+          {linkText}
+        </span>
+      )}
     </p>
   );
 };

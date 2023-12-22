@@ -9,11 +9,12 @@ interface GoogleSignInProps {
   logout: () => void;
 }
 
-type UserDetails = {
+export type UserDetails = {
   name: string;
   email: string;
   authToken: string;
   refreshToken: string;
+  isVerified: boolean;
 };
 
 export const useGoogleSignIn = (): GoogleSignInProps => {

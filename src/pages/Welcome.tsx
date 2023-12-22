@@ -1,37 +1,14 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
+import octoAnimation from '../../resources/octo-lottie.json';
 
 const Welcome = () => {
   const navigate = useNavigate();
 
-  //If user is logged in and navigates to this page redirect to dashboard page or login page
-  useEffect(() => {
-    if (localStorage.getItem('auth_token')) {
-      navigate('/dashboard');
-    } else {
-      navigate('/login');
-    }
-  }, []);
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-        backgroundColor: '#fffff',
-      }}
-    >
-      <h1 className="text-3xl font-bold underline">Welcome Page</h1>
-      <button
-        type="button"
-        onClick={() => {
-          navigate('/register');
-        }}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Sign up
-      </button>
+    <div className="flex flex-col items-center justify-center min-h-screen max-h-screen bg-gradient-to-b from-veryDarkBlue from-0.01% to-darkBlue to-99.99% overflow-hidden">
+      <Lottie animationData={octoAnimation} loop />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { BackChevron } from './back-chevron';
 import { RightArrow } from './right-arrow';
 import { HourGlass } from './hour-glass';
 import { Help } from './help';
+import { Verified } from './verified';
 
 export {
   Hashtag,
@@ -22,4 +23,5 @@ export {
   RightArrow,
   HourGlass,
   Help,
+  Verified,
 };

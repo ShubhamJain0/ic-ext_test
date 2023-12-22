@@ -16,6 +16,8 @@ interface InputProps {
   onBlur?: () => void;
   caretColor?: string;
   focusClasses?: string;
+  disabled?: boolean;
+  rightComponent?: React.ReactNode;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -33,6 +35,8 @@ export const Input: React.FC<InputProps> = ({
   onBlur,
   caretColor,
   focusClasses,
+  disabled,
+  rightComponent,
 }) => {
   const inputRef = useRef(null);
   const [focusEffects, setFocusEffects] = useState<string>();
@@ -54,25 +58,29 @@ export const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div className="relative flex flex-col mb-[15px]">
-      <label className="text-TypographyDark font-satoshiMedium text-bodyLg">
-        {label}
-      </label>
+    <div className="relative flex flex-col">
+      {label && (
+        <label className="text-TypographyDark font-satoshiMedium text-bodyLg">
+          {label}
+        </label>
+      )}
       <div
         className={`flex flex-row gap-4 items-center bg-InputBG h-[50px] rounded-[12px] px-[18px] py-[20px] mt-[10px] border-[1px] ${focusEffects} ${
           errorText ? 'border-errorRed bg-errorRed bg-opacity-[0.1]' : 'border-InputBG'
         }`}
       >
-        {icon &&
-          (icon === 'user-avatar' ? (
-            <UserAvatar fillColor={iconColor} />
-          ) : icon === 'email' ? (
-            <Email fillColor={iconColor} />
-          ) : icon === 'password' ? (
-            <Password fillColor={iconColor} />
-          ) : icon === 'hashtag' ? (
-            <Hashtag fillColor={iconColor} />
-          ) : null)}
+        <div>
+          {icon &&
+            (icon === 'user-avatar' ? (
+              <UserAvatar fillColor={iconColor} />
+            ) : icon === 'email' ? (
+              <Email fillColor={iconColor} />
+            ) : icon === 'password' ? (
+              <Password fillColor={iconColor} />
+            ) : icon === 'hashtag' ? (
+              <Hashtag fillColor={iconColor} />
+            ) : null)}
+        </div>
         <input
           ref={inputRef}
           name={name}
@@ -83,10 +91,12 @@ export const Input: React.FC<InputProps> = ({
           required={required}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className={`text-TypographyDark w-full text-bodySm font-manropeRegular bg-transparent placeholder:text-TypographyDark placeholder:text-bodySm focus:outline-none ${
+          className={`text-TypographyDark w-full text-bodySm placeholder:font-manropeRegular font-manropeMedium bg-transparent placeholder:text-TypographyDark placeholder:text-bodySm focus:outline-none ${
             caretColor && `caret-[${caretColor}]`
           }`}
+          disabled={disabled}
         />
+        {rightComponent && rightComponent}
       </div>
       <p
         className={`text-errorRed sm:text-bodySm xs:text-bodyXs font-manropeRegular m-0 mt-[10px] absolute -bottom-[25px] opacity-${

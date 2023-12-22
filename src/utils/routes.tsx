@@ -2,11 +2,15 @@ import AuthorizationStatus from '../pages/AuthorizationStatus';
 import Authorize from '../pages/Authorize';
 import CMSCollections from '../pages/CMSCollections';
 import Compression from '../pages/Compression';
+import { ConnectedSites } from '../pages/ConnectedSites';
 import Dashboard from '../pages/Dashboard';
+import VerifyEmail from '../pages/EmailVerify';
 import ErrorPage from '../pages/ErrorPage';
 import Login from '../pages/Login';
+import Profile from '../pages/Profile';
 import Result from '../pages/Result';
 import Singup from '../pages/Singup';
+import { TaskHistory } from '../pages/TaskHistory';
 import Welcome from '../pages/Welcome';
 
 //use js closures to merge all routes, leverage useRoutes() hooks to create split routes using JS
@@ -67,6 +71,26 @@ export const AuthenticatedRootRoutes = [
   {
     path: '/optimize',
     element: Result,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/connected-sites',
+    element: ConnectedSites,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/task-history',
+    element: TaskHistory,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/verify-email',
+    element: VerifyEmail,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/profile',
+    element: Profile,
     errorElement: <ErrorPage />,
   },
 ];

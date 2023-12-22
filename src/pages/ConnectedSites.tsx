@@ -1,58 +1,41 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { BodyText, Button, Header } from '../components/UI';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { InProgressCard } from '../components/InProgressCard';
-import { SuccessCard } from '../components/SuccessCard';
-import { FailureCard } from '../components/FailureCard';
+import { BodyText, Button, Header, HeaderBold } from '../components/UI';
+import { ConnectionCard } from '../components/ConnectionCard';
+import { getRecentConnections } from '../utils/apis';
 import { AuthContext } from '../utils/hooks/useAuth';
 
-const Result = () => {
-  const navigate = useNavigate();
-  const { state } = useLocation();
-  const [status, setStatus] = useState<'inprogress' | 'success' | 'failure'>(
-    'inprogress',
-  );
+export const ConnectedSites = () => {
+  const [recentConnections, setRecentConnections] = useState<any>([]);
+  const { isUserVerified, userInfo } = useContext(AuthContext);
 
-  const [sendEmailAfterSuccess, setSendEmailAfterSuccess] = useState(true);
-  const [percentageCompleted, setPercentageCompleted] = useState(0);
-  const [totalImageCount, setTotalImageCount] = useState(0);
-  const [imagesCompleted, setImagesCompleted] = useState(0);
+  const navigate = useNavigate();
 
   const [profileName, setProfileName] = useState('');
-  const { userInfo } = useContext(AuthContext);
 
-  //Call status API
-  const callStatusAPI = async () => {
-    //Here API, if success
-    setStatus('inprogress');
-    setTotalImageCount(100);
-    const interval = setInterval(() => {
-      setPercentageCompleted((prevPercentage) => {
-        const n = prevPercentage < 100 ? prevPercentage + 1 + 0 : 100;
-        if (prevPercentage === 100) {
-          clearInterval(interval);
-          setStatus('success');
-        }
-        return n;
-      });
-      setImagesCompleted((prevImages) => {
-        const n = prevImages < 100 ? prevImages + 1 + 0 : 100;
-        return n;
-      });
-    }, 100);
+  const onRecentConnectionClick = (connection: any) => {
+    //Navigate to compression page
+    navigate('/select-website', {
+      state: {
+        hasRecentConnections: recentConnections.length,
+        step: 2,
+        selectedConnection: { label: connection?.name, value: connection?.id },
+      },
+    });
   };
 
-  //Remove this. This is for demo
+  const onRecentConnectionsSuccess = (data: any) => {
+    setRecentConnections(data?.data);
+  };
+
+  const onRecentConnectionsError = () => {};
+
   useEffect(() => {
-    if (state?.data) {
-      setStatus(state?.data?.status || 'inprogress');
-      if (state?.data?.status === 'inprogress') {
-        callStatusAPI();
-      }
-    } else {
-      callStatusAPI();
-    }
-  }, [state]);
+    //call recent connection api and set on success
+    (async () => {
+      await getRecentConnections(onRecentConnectionsSuccess, onRecentConnectionsError);
+    })();
+  }, []);
 
   useEffect(() => {
     if (userInfo?.name) {
@@ -66,13 +49,18 @@ const Result = () => {
   }, [userInfo]);
 
   return (
-    <div className={'relative flex flex-col min-h-screen'}>
+    <div className={`relative flex flex-col min-h-screen`}>
       {/* Bg Gradient */}
       <div className="absolute top-0 right-0 bottom-0 left-0 bg-gradient-to-b from-veryDarkBlue from-0.01% to-darkBlue to-99.99%" />
       {/* Bg Image */}
       <div
         className="absolute top-0 right-0 bottom-0 left-0 bg-cover bg-[center_12rem] bg-no-repeat bg-fixed"
         style={{ backgroundImage: `url(images/dashboard-bg.png)` }}
+      />
+      {/* Bubbles Bg Image */}
+      <div
+        className="absolute top-0 right-0 bottom-0 left-0 bg-contain bg-fixed"
+        style={{ backgroundImage: `url(images/bubbles.png)` }}
       />
 
       {/* Content */}
@@ -85,7 +73,7 @@ const Result = () => {
           <div>
             <div className="flex flex-row gap-[40px] bg-[#FFFFFF47] px-[24px] py-[12px] rounded-[39px] shadow-[inset_-1px_-1px_0px_0px_#FFFFFF47]">
               <div
-                className="opacity-80 hover:opacity-100 transition-all duration-400 cursor-pointer"
+                className="relative opacity-80 hover:opacity-100 transition-all duration-400 cursor-pointer"
                 onClick={() => {
                   navigate('/connected-sites');
                 }}
@@ -97,7 +85,9 @@ const Result = () => {
                   smSize="sm:text-bodyXs"
                   xsSize="xs:text-bodyXs"
                   align="text-center"
+                  color="text-Secondary"
                 />
+                <div className="bg-Secondary h-[2px] w-[24px] mt-[4px] absolute left-[40%]"></div>
               </div>
               <div
                 className="opacity-80 hover:opacity-100 transition-all duration-400 cursor-pointer"
@@ -141,81 +131,60 @@ const Result = () => {
           </div>
         </div>
         {/* Main Component */}
-        <div className="relative mt-[102px] mb-[172px]">
-          <div className="flex flex-row gap-8 items-start justify-between">
-            <div className="basis-1/2 mt-[56px]">
-              <div className="max-w-[85%]">
-                <Header
-                  content={
-                    status === 'inprogress'
-                      ? 'Your optimization is in progress.'
-                      : status === 'success'
-                      ? "Website, optimized! You're all set."
-                      : 'Oops, Something Went Wrong!'
-                  }
-                  color="text-white"
+        <div className="relative mt-[76px] mb-[172px]">
+          <div className="flex px-[32px] items-center">
+            <div>
+              <Header content="Recently connected sites" />
+              <div className="mt-[12px]">
+                <BodyText
+                  content="Review the websites you've recently added for optimization."
+                  opacity="opacity-70"
                 />
-
-                <div className="mt-[20px]">
-                  <BodyText
-                    content={
-                      status === 'inprogress'
-                        ? 'You can monitor the progress here.'
-                        : status === 'success'
-                        ? 'Now, experience the delight of faster loading speeds on your website.'
-                        : 'We encountered an issue during optimization.'
-                    }
-                    color="text-white"
-                    opacity="opacity-70"
-                  />
-                </div>
               </div>
-              <div className="mt-[32px]">
-                {status === 'inprogress' || status === 'success' ? (
-                  <Button
-                    type="button"
-                    label="Back to dashboard"
-                    onClick={() => navigate('/dashboard')}
-                  />
-                ) : (
-                  <div className="flex flex-row gap-4">
-                    <Button type="button" label="Contact us" onClick={() => {}} />
-                    <Button
-                      type="button"
-                      label="Back to dashboard"
-                      onClick={() => navigate('/dashboard')}
-                      variant="secondary"
+            </div>
+          </div>
+          {/* Recent Connections */}
+          <div className="bg-[#131B2D] p-[40px] rounded-[36px] rounded-br-[0px] mt-[30px] border-[#DADCF633] border-[1px]">
+            {!recentConnections.length ? (
+              <div className="p-[100px] mt-[40px] flex flex-col items-center">
+                <div className="flex flex-col items-center">
+                  <HeaderBold content="No connections found" align="text-center" />
+                  <div className="mt-[8px] max-w-[450px]">
+                    <BodyText
+                      content="Once you connect it, you'll find all your latest connections right here, neatly organized and ready to roll."
+                      xlSize="xl:text-bodySm"
+                      lgSize="lg:text-bodySm"
+                      mdSize="md:text-bodySm"
+                      opacity="opacity-70"
+                      align="text-center"
                     />
                   </div>
-                )}
+                  <div className="mt-[24px]">
+                    <Button
+                      label="Start now"
+                      type="button"
+                      onClick={() =>
+                        navigate('/select-website', {
+                          state: { hasRecentConnections: recentConnections.length > 0 },
+                        })
+                      }
+                      disabled={!isUserVerified}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="basis-1/2">
-              {status === 'inprogress' && (
-                <InProgressCard
-                  estimated_time="2 mins"
-                  imageCompletedCount={imagesCompleted}
-                  imageTotalCount={totalImageCount}
-                  percentageCompleted={percentageCompleted}
-                  onSendEmailCheck={() => {
-                    setSendEmailAfterSuccess(!sendEmailAfterSuccess);
-                  }}
-                  emailChecked={sendEmailAfterSuccess}
-                />
-              )}
-              {status === 'success' && (
-                <SuccessCard
-                  savedBytes="4.3 mb"
-                  dataProcessed="1000 mb"
-                  timeTaken="2 mins"
-                  percentageSaved={20}
-                  totalImagesOptimized={totalImageCount}
-                />
-              )}
-              {status === 'failure' && (
-                <FailureCard failure_reason="Something went wrong" />
-              )}
-            </div>
+            ) : (
+              <div className="grid md:grid-cols-3 grid-cols-1 gap-[24px] mt-[40px]">
+                {recentConnections.map((connection: any) => (
+                  <ConnectionCard
+                    image_url={connection.image_url}
+                    name={connection.name}
+                    activity={connection.activity}
+                    onClick={() => onRecentConnectionClick(connection)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -254,5 +223,3 @@ const Result = () => {
     </div>
   );
 };
-
-export default Result;

@@ -5,11 +5,7 @@ export default function NotFound() {
   const { isAuthenticated } = useContext(AuthContext);
 
   const handleHome = () => {
-    if (isAuthenticated) {
-      window.location.href = '/cms-collections';
-    } else {
-      window.location.href = '/';
-    }
+    window.location.href = '/';
   };
 
   return (

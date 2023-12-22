@@ -27,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
   return variant === 'primary' ? (
     <button
       disabled={disabled}
-      className={`font-satoshiMedium text-left border-[1px] border-solid border-transparent ${
+      className={`font-satoshiMedium text-center border-[1px] border-solid border-transparent ${
         size === 'medium'
           ? `sm:text-bodySm text-bodyXs ${
               disabled
@@ -55,7 +55,7 @@ export const Button: React.FC<ButtonProps> = ({
   ) : variant === 'secondary' ? (
     <button
       disabled={disabled}
-      className={`font-satoshiMedium text-left border-[1px] border-solid border-white ${
+      className={`font-satoshiMedium text-center border-[1px] border-solid border-white ${
         size === 'medium'
           ? `sm:text-bodySm text-bodyXs ${
               disabled

@@ -21,7 +21,7 @@ export const InProgressCard: React.FC<TProps> = ({
 }) => {
   return (
     <div className="bg-[#131B2D] p-[32px] rounded-[36px] rounded-br-[0px] w-full h-full border-[1px] border-[#DADCF633]">
-      <div className="flex flex-row items-center justify-between">
+      <div className="flex flex-row gap-4 items-center justify-between">
         <div
           className={`bg-[#FFDC821F] border-[#FFDC8240] rounded-[4px] px-[12px] py-[6px] border-[1px]`}
         >
@@ -34,7 +34,7 @@ export const InProgressCard: React.FC<TProps> = ({
             mediumFont
           />
         </div>
-        <div className="bg-Secondary rounded-[40px] px-[18px] py-[12px]">
+        <div className="bg-Secondary min-w-[136px] rounded-[40px] px-[18px] py-[12px]">
           <BodyText
             content={`${imageCompletedCount} of ${imageTotalCount} images`}
             xlSize="xl:text-bodyXs"

@@ -199,6 +199,41 @@ export const getRecentConnections = async (
           name: 'Adelfox - Engage your audience',
           activity: 'opened just now',
         },
+        {
+          image_url: 'images/thumbnail.svg',
+          name: 'Adelfox - Engage your audience',
+          activity: 'opened just now',
+        },
+        {
+          image_url: 'images/thumbnail.svg',
+          name: 'Adelfox - Engage your audience',
+          activity: 'opened just now',
+        },
+        {
+          image_url: 'images/thumbnail.svg',
+          name: 'Adelfox - Engage your audience',
+          activity: 'opened just now',
+        },
+        {
+          image_url: 'images/thumbnail.svg',
+          name: 'Adelfox - Engage your audience',
+          activity: 'opened just now',
+        },
+        {
+          image_url: 'images/thumbnail.svg',
+          name: 'Adelfox - Engage your audience',
+          activity: 'opened just now',
+        },
+        {
+          image_url: 'images/thumbnail.svg',
+          name: 'Adelfox - Engage your audience',
+          activity: 'opened just now',
+        },
+        {
+          image_url: 'images/thumbnail.svg',
+          name: 'Adelfox - Engage your audience',
+          activity: 'opened just now',
+        },
       ],
     });
   } catch (error) {
@@ -262,6 +297,85 @@ export const getRecentActivities = async (
   } catch (error) {
     console.error('Error getting recent connections:', error);
     // Handle error cases here, such as showing an error message to the user
+    onError(error);
+  }
+};
+
+export const getUserDetails = async (
+  onSuccess: (arg: any) => void,
+  onError: (arg: any) => void,
+) => {
+  try {
+    const headers = getHeaders();
+
+    const result = await fetch(`${BASE_URL}/get-user-details`, {
+      method: 'GET',
+      headers,
+    });
+    if (result.ok) {
+      const responseData = await result.json();
+      onSuccess(responseData);
+    } else {
+      // Handle error cases here, such as showing an error message to the user
+      onError(result);
+    }
+  } catch (error) {
+    console.error('Error getting user details:', error);
+    // Handle error cases here, such as showing an error message to the user
+    onError(error);
+  }
+};
+
+export const resendVerificationEmail = async (
+  onSuccess: (arg: any) => void,
+  onError: (arg: any) => void,
+) => {
+  try {
+    const headers = getHeaders();
+
+    const result = await fetch(`${BASE_URL}/resend-email`, {
+      method: 'GET',
+      headers,
+    });
+    if (result.ok) {
+      const responseData = await result.json();
+      onSuccess(responseData);
+    } else {
+      // Handle error cases here, such as showing an error message to the user
+      onError(result);
+    }
+  } catch (error) {
+    console.error('Error getting user details:', error);
+    // Handle error cases here, such as showing an error message to the user
+    onError(error);
+  }
+};
+
+export const verifyUser = async (
+  token: string,
+  onSuccess: (arg: any) => void,
+  onError: (arg: any) => void,
+) => {
+  try {
+    const result = await fetch(`${BASE_URL}/verify-user`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        token,
+      }),
+    });
+
+    if (result.ok) {
+      const responseData = await result.json();
+      onSuccess(responseData);
+    } else {
+      // Handle error cases here, such as showing an error message to the user
+      onError(result);
+    }
+  } catch (error) {
+    console.error('Error user sign in using google Oauth', error);
     onError(error);
   }
 };
