@@ -23,6 +23,8 @@ const Login = () => {
   } = useGoogleSignIn();
   const { login } = useContext(AuthContext);
 
+  const [btnLoading, setBtnLoading] = useState(false);
+
   //Handle login from google
   useEffect(() => {
     if (googleIsAuthenticated) {
@@ -50,6 +52,7 @@ const Login = () => {
   const onSuccess = (responseData: any) => {
     console.log('User data', responseData);
     login(responseData?.payload, false);
+    setBtnLoading(false);
   };
 
   const onError = (status: number) => {
@@ -58,6 +61,7 @@ const Login = () => {
     } else if (status === 404) {
       setErrorText({ ...errorText, email: "Email doesn't match" });
     }
+    setBtnLoading(false);
     return;
   };
 
@@ -72,6 +76,7 @@ const Login = () => {
       });
       return;
     }
+    setBtnLoading(true);
     //call login api
     loginUser(formValues, onSuccess, onError);
   };
@@ -178,7 +183,7 @@ const Login = () => {
               />
             </div>
             <div className="mt-[20px] flex flex-col">
-              <Button label="Login" type="submit" />
+              <Button label="Login" type="submit" loading={btnLoading} />
             </div>
           </form>
           <div

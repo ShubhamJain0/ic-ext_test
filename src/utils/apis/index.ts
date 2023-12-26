@@ -302,6 +302,8 @@ export const getRecentActivities = async (
 };
 
 export const getUserDetails = async (
+  authToken: string,
+  refreshToken: string,
   onSuccess: (arg: any) => void,
   onError: (arg: any) => void,
 ) => {
@@ -309,8 +311,12 @@ export const getUserDetails = async (
     const headers = getHeaders();
 
     const result = await fetch(`${BASE_URL}/get-user-details`, {
-      method: 'GET',
+      method: 'POST',
       headers,
+      body: JSON.stringify({
+        authToken,
+        refreshToken,
+      }),
     });
     if (result.ok) {
       const responseData = await result.json();

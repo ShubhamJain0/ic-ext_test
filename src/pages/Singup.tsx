@@ -25,6 +25,8 @@ const Singup = () => {
   } = useGoogleSignIn();
   const { login } = useContext(AuthContext);
 
+  const [btnLoading, setBtnLoading] = useState(false);
+
   //Handle login from google
   useEffect(() => {
     if (googleIsAuthenticated) {
@@ -52,12 +54,14 @@ const Singup = () => {
   const onSuccess = (responseData: any) => {
     console.log('User data', responseData);
     login(responseData?.payload, true);
+    setBtnLoading(false);
   };
 
   const onError = (status: number) => {
     if (status === 400) {
       setErrorText({ ...errorText, email: 'Email already exists' });
     }
+    setBtnLoading(false);
     return;
   };
 
@@ -73,6 +77,7 @@ const Singup = () => {
       });
       return;
     }
+    setBtnLoading(true);
     //call register api
     signupUser(formValues, onSuccess, onError);
   };
@@ -180,7 +185,7 @@ const Singup = () => {
               icon="password"
             />
             <div className="mt-[20px] flex flex-col">
-              <Button label="Create account" type="submit" />
+              <Button label="Create account" type="submit" loading={btnLoading} />
             </div>
           </form>
           <div

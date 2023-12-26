@@ -15,8 +15,8 @@ export const Header: React.FC<HeaderProps> = ({
   color = 'text-white',
   lgSize = 'lg:text-headingLg',
   mdSize = 'md:text-headingMd',
-  smSize = 'sm:headingSm',
-  xsSize = 'xs:headingXs',
+  smSize = 'sm:text-headingSm',
+  xsSize = 'xs:text-headingXs',
   align = 'text-left',
 }) => {
   return (

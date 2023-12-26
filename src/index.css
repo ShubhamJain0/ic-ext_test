@@ -34,3 +34,44 @@ code {
   font-family: 'manrope-medium';
   src: url('../resources/fonts/Manrope-Medium.ttf');
 }
+
+/* Button Loader Animation */
+
+@keyframes moveUpDown1 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes moveUpDown2 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes moveUpDown3 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-dot1 {
+  animation: moveUpDown1 1s infinite;
+}
+
+.animate-dot2 {
+  animation: moveUpDown2 1s infinite 0.2s;
+}
+
+.animate-dot3 {
+  animation: moveUpDown3 1s infinite 0.3s;
+}

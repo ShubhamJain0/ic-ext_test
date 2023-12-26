@@ -11,6 +11,7 @@ interface ButtonProps {
   size?: 'medium' | 'large';
   topShadow?: boolean;
   showRightIcon?: boolean;
+  loading?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -23,11 +24,12 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   showRightIcon,
   variant = 'primary',
+  loading = false,
 }) => {
   return variant === 'primary' ? (
     <button
-      disabled={disabled}
-      className={`font-satoshiMedium text-center ${
+      disabled={disabled || loading}
+      className={`relative font-satoshiMedium text-center ${
         size === 'medium'
           ? `sm:text-bodySm text-bodyXs ${
               disabled
@@ -45,11 +47,21 @@ export const Button: React.FC<ButtonProps> = ({
           : 'shadow-[inset_-1.5px_-1.5px_0px_0px_#FFFFFF33]'
       }
       ${showRightIcon && 'flex flex-row gap-[30px] justify-between items-center'}
+      ${loading ? 'cursor-not-allowed' : 'cursor-pointer'}
       ${className}`}
       onClick={onClick}
       type={type}
     >
-      {label}
+      <div className={`${loading && 'opacity-0'}`}>{label}</div>
+      {loading && (
+        <div className="absolute left-0 top-0 flex items-center justify-center w-full h-full">
+          <div className="flex space-x-1">
+            <div className="bg-white w-[10px] h-[10px] rounded-full animate-dot1"></div>
+            <div className="bg-white w-[10px] h-[10px] rounded-full opacity-70 animate-dot2"></div>
+            <div className="bg-white w-[10px] h-[10px] rounded-full opacity-40 animate-dot3"></div>
+          </div>
+        </div>
+      )}
       {showRightIcon && <RightArrow fillColor="white" />}
     </button>
   ) : variant === 'secondary' ? (

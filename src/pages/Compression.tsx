@@ -50,6 +50,8 @@ const Compression = () => {
   const [selectedFields, setSelectedFields] = useState<Array<CMSCollectionProps>>([]);
   const [isEstimationModalVisible, setIsEstimationModalVisible] = useState(false);
 
+  const [btnLoading, setBtnLoading] = useState(false);
+
   const handleModeSelection = (mode: 'API' | 'Webflow' | 'Connections') => {
     setSelectedMode(mode);
     //Reset states only when other mode is selected and not when same mode is clicked
@@ -77,14 +79,17 @@ const Compression = () => {
   };
 
   const handleConnectionUsingAPIKey = () => {
+    setBtnLoading(true);
     //Call API here that will verify the API and if success
     if (true) {
       //Set connection
       setSelectedConnection({ label: 'Noon - Make it awesome', value: 'id' });
+      setBtnLoading(false);
       handleConfigureConnection();
     } else {
       setErrorText({ ...errorText, apiKey: 'Invalid API' });
       setApiKeyInputIconColor('red');
+      setBtnLoading(false);
     }
   };
 
@@ -207,7 +212,9 @@ const Compression = () => {
   };
 
   const displayEstimation = () => {
+    setBtnLoading(true);
     //Call api and if success
+    setBtnLoading(false);
     setIsEstimationModalVisible(true);
   };
 
@@ -550,6 +557,7 @@ const Compression = () => {
                   label="Connect API"
                   onClick={() => handleConnectionUsingAPIKey()}
                   type="button"
+                  loading={btnLoading}
                 />
               ) : selectedMode === 'Webflow' ? (
                 isWebflowConnected ? (
@@ -761,6 +769,7 @@ const Compression = () => {
                 onClick={() => displayEstimation()}
                 type="button"
                 disabled={selectedFields.length === 0 || !cmsCollections.length}
+                loading={btnLoading}
               />
             </div>
           </div>

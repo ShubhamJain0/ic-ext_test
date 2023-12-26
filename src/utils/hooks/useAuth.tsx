@@ -44,6 +44,11 @@ const useAuth = () => {
       email: responseData?.payload?.email,
     });
     setIsAuthenticated(true);
+    //If auth token and refresh token is in payload, save it in local storage
+    if (responseData?.payload?.authToken && responseData?.payload?.refreshToken) {
+      localStorage.setItem('auth_token', responseData?.payload?.authToken);
+      localStorage.setItem('refresh_token', responseData?.payload?.refreshToken);
+    }
     //Check if user is verified and if not, redirect to verification page. This also prevents the user from going to the connection config page by manually typing the url
     if (!responseData?.payload?.isVerified) {
       //Check if url contains 'verify_email' parameter and navigate accordingly to dashboard for verification
@@ -57,7 +62,11 @@ const useAuth = () => {
     }
   };
 
-  const onError = (responseData: any) => {};
+  const onError = (responseData: any) => {
+    if (responseData.status === 401) {
+      logout();
+    }
+  };
 
   useEffect(() => {
     init();
@@ -74,14 +83,15 @@ const useAuth = () => {
 
   //If token exists, navigate to authorization page
   const init = async () => {
-    //Navigate to default page
-    navigate('/');
     const token = localStorage.getItem('auth_token');
+    const refreshToken = localStorage.getItem('refresh_token');
     if (window.location.search.includes('verify_email')) {
       emailVerificationToken = window.location.search;
     }
-    if (token) {
-      await getUserDetails(onSuccess, onError);
+    //Navigate to default page
+    navigate('/');
+    if (token && refreshToken) {
+      await getUserDetails(token, refreshToken, onSuccess, onError);
     } else {
       navigate('/login');
     }
@@ -101,7 +111,7 @@ const useAuth = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem('auth_token');
+    localStorage.clear();
     setIsAuthenticated(false);
     setUserInfo({ name: '', email: '' });
     setIsUserVerified(false);
