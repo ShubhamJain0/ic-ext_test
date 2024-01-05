@@ -36,6 +36,7 @@ const useAuth = () => {
   const navigate = useNavigate();
 
   let emailVerificationToken = '';
+  let webflowWorkspaceAuthToken = '';
 
   const onSuccess = (responseData: any) => {
     setIsUserVerified(responseData?.payload?.isVerified || false);
@@ -57,13 +58,17 @@ const useAuth = () => {
       } else {
         navigate('/verify-email');
       }
+    }
+    //Check if url contains 'code' parameter and navigate accordingly to compression page for webflow workspace
+    else if (webflowWorkspaceAuthToken) {
+      navigate({ pathname: '/select-website', search: webflowWorkspaceAuthToken });
     } else {
       navigate('/dashboard');
     }
   };
 
   const onError = (responseData: any) => {
-    if (responseData.status === 401) {
+    if (responseData?.status === 401) {
       logout();
     }
   };
@@ -87,6 +92,8 @@ const useAuth = () => {
     const refreshToken = localStorage.getItem('refresh_token');
     if (window.location.search.includes('verify_email')) {
       emailVerificationToken = window.location.search;
+    } else if (window.location.search.includes('code')) {
+      webflowWorkspaceAuthToken = window.location.search;
     }
     //Navigate to default page
     navigate('/');

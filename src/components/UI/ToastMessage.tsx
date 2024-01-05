@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BodyText } from './BodyText';
 import { Info } from '../svg-components';
 
@@ -16,17 +16,32 @@ export const ToastMessage: React.FC<ToastMessageProps> = ({
   hide,
 }) => {
   const timeoutRef: any = useRef(null);
+  const [progressWidth, setProgressWidth] = useState(0);
 
   useEffect(() => {
+    let intervalId: any;
     if (show) {
+      setProgressWidth(0);
+      // Start updating the progress bar width with interval of (5000ms to hide toast)/(100% width) = 50ms
+      intervalId = setInterval(() => {
+        setProgressWidth((prevWidth) => {
+          const newWidth = prevWidth + 1;
+          // Stop the interval when the progress reaches 100%
+          if (newWidth >= 100) {
+            clearInterval(intervalId);
+          }
+          return newWidth;
+        });
+      }, 50);
       timeoutRef.current = setTimeout(() => {
         hide(false);
       }, 5000);
-    } else if (timeoutRef.current) {
-      // Clear timeout if hidden
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
     }
+
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(timeoutRef.current);
+    };
   }, [show]);
 
   return (
@@ -75,10 +90,9 @@ export const ToastMessage: React.FC<ToastMessageProps> = ({
             : type === 'error'
             ? 'bg-SemanticsRed'
             : 'bg-Secondary'
-        } h-[5px] rounded-b-[12px] rounded-br-[0px] w-full absolute bottom-0 left-0 transition-width duration-[5000ms]`}
+        } h-[5px] rounded-b-[12px] rounded-br-[0px] w-full absolute bottom-0 left-0 transition-width ease-in-out duration-400`}
         style={{
-          width: `${show ? '0%' : '100%'}`,
-          transition: 'width 5000ms ease-in-out',
+          width: `${progressWidth}%`,
         }}
       ></div>
     </div>

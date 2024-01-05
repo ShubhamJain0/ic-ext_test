@@ -17,6 +17,8 @@ import {
 } from '../components/CMSCollectionsUI';
 import { ConversionCard } from '../components/ConversionCard';
 import { EstimationModal } from '../components/EstimationModal';
+import { authDetails } from '../utils/constants';
+import { getSiteToken } from '../utils/apis';
 
 const Compression = () => {
   const { state } = useLocation();
@@ -51,6 +53,7 @@ const Compression = () => {
   const [isEstimationModalVisible, setIsEstimationModalVisible] = useState(false);
 
   const [btnLoading, setBtnLoading] = useState(false);
+  const [webflowAuthBtnLoading, setWebflowAuthBtnLoading] = useState(false);
 
   const handleModeSelection = (mode: 'API' | 'Webflow' | 'Connections') => {
     setSelectedMode(mode);
@@ -94,12 +97,20 @@ const Compression = () => {
   };
 
   const authorizeWebflow = () => {
-    //Do authorization and on success
-    if (true) {
-      //Set webflow connections
-      setWebflowConnections([{ label: 'Noon - Make it awesome', value: 'id' }]);
-      setIsWebflowConnected(true);
+    setWebflowAuthBtnLoading(true);
+    window.location.href = `https://webflow.com/oauth/authorize?response_type=code&client_id=${authDetails.client_ID}&scope=${authDetails.scope}`;
+  };
+
+  //We get the webflow connections here from API using auth code and set them in state
+  const setConnectionsUsingWebflowWorkspace = (resp: any) => {
+    console.log('setConnectionsUsingWebflowWorkspace', resp);
+    let temp = [];
+    for (let i = 0; i < resp?.length; i++) {
+      temp.push({ label: resp[i].displayName, value: resp[i].id });
     }
+    setWebflowConnections(temp);
+    setWebflowAuthBtnLoading(false);
+    setIsWebflowConnected(true);
   };
 
   const handleConfigureConnection = () => {
@@ -225,18 +236,33 @@ const Compression = () => {
   //Call recent/saved connections API
   useEffect(() => {
     //Call api and if success
-    if (true) {
-      setSavedConnections([
-        {
-          label: 'Noon - Make it awesome',
-          tag: '1',
-          value: 'id',
-        },
-        { label: 'Adelfox - Engage your audience', tag: '2', value: 'id2' },
-        { label: 'Botly - Your Webflow Partner', tag: '2', value: 'id3' },
-        { label: 'ThunderClap', tag: '2', value: 'id4' },
-      ]);
-    }
+    (async () => {
+      if (true) {
+        setSavedConnections([
+          {
+            label: 'Noon - Make it awesome',
+            tag: '1',
+            value: 'id',
+          },
+          { label: 'Adelfox - Engage your audience', tag: '2', value: 'id2' },
+          { label: 'Botly - Your Webflow Partner', tag: '2', value: 'id3' },
+          { label: 'ThunderClap', tag: '2', value: 'id4' },
+        ]);
+      }
+
+      //This is for getting connections when redirected after webflow auth
+      let authCode = new URLSearchParams(window.location.search).get('code');
+      if (authCode) {
+        setWebflowAuthBtnLoading(true);
+        setSelectedMode('Webflow');
+        const response = await getSiteToken(authCode);
+        if (response?.payload?.sites) {
+          setConnectionsUsingWebflowWorkspace(response?.payload?.sites);
+        } else {
+          setWebflowAuthBtnLoading(false);
+        }
+      }
+    })();
   }, []);
 
   //Below positions the action div according to overflow
@@ -572,6 +598,7 @@ const Compression = () => {
                     label="Authorize Webflow"
                     onClick={() => authorizeWebflow()}
                     type="button"
+                    loading={webflowAuthBtnLoading}
                   />
                 )
               ) : (

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BodyText, Button, Header, HeaderBold } from '../components/UI';
 import { ActivityCard } from '../components/ActivityCard';
@@ -31,7 +31,7 @@ export const TaskHistory = () => {
     })();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (userInfo?.name) {
       let temp = userInfo?.name.split(' ');
       if (temp.length > 1) {

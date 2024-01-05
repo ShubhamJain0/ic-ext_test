@@ -1,12 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BodyText, Button, Header, HeaderBold } from '../components/UI';
 import { ConnectionCard } from '../components/ConnectionCard';
 import { getRecentConnections } from '../utils/apis';
 import { AuthContext } from '../utils/hooks/useAuth';
+import { RecentConnections } from './Dashboard';
+import { calculateLastOpened } from '../utils/methods';
 
 export const ConnectedSites = () => {
-  const [recentConnections, setRecentConnections] = useState<any>([]);
+  const [recentConnections, setRecentConnections] = useState<Array<RecentConnections>>(
+    [],
+  );
   const { isUserVerified, userInfo } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -17,15 +21,15 @@ export const ConnectedSites = () => {
     //Navigate to compression page
     navigate('/select-website', {
       state: {
-        hasRecentConnections: recentConnections.length,
+        hasRecentConnections: recentConnections?.length,
         step: 2,
-        selectedConnection: { label: connection?.name, value: connection?.id },
+        selectedConnection: { label: connection?.siteName, value: connection?.id },
       },
     });
   };
 
   const onRecentConnectionsSuccess = (data: any) => {
-    setRecentConnections(data?.data);
+    setRecentConnections(data);
   };
 
   const onRecentConnectionsError = () => {};
@@ -37,7 +41,7 @@ export const ConnectedSites = () => {
     })();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (userInfo?.name) {
       let temp = userInfo?.name.split(' ');
       if (temp.length > 1) {
@@ -145,7 +149,7 @@ export const ConnectedSites = () => {
           </div>
           {/* Recent Connections */}
           <div className="bg-[#131B2D] p-[40px] rounded-[36px] rounded-br-[0px] mt-[30px] border-[#DADCF633] border-[1px]">
-            {!recentConnections.length ? (
+            {!recentConnections?.length ? (
               <div className="p-[100px] mt-[40px] flex flex-col items-center">
                 <div className="flex flex-col items-center">
                   <HeaderBold content="No connections found" align="text-center" />
@@ -165,7 +169,7 @@ export const ConnectedSites = () => {
                       type="button"
                       onClick={() =>
                         navigate('/select-website', {
-                          state: { hasRecentConnections: recentConnections.length > 0 },
+                          state: { hasRecentConnections: recentConnections?.length > 0 },
                         })
                       }
                       disabled={!isUserVerified}
@@ -175,11 +179,11 @@ export const ConnectedSites = () => {
               </div>
             ) : (
               <div className="grid md:grid-cols-3 grid-cols-1 gap-[24px] mt-[40px]">
-                {recentConnections.map((connection: any) => (
+                {recentConnections.map((connection) => (
                   <ConnectionCard
-                    image_url={connection.image_url}
-                    name={connection.name}
-                    activity={connection.activity}
+                    image_url={connection.previewUrl}
+                    name={connection.siteName}
+                    activity={'opened ' + calculateLastOpened(connection.lastOpened)}
                     onClick={() => onRecentConnectionClick(connection)}
                   />
                 ))}

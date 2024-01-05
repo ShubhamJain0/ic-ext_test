@@ -177,65 +177,19 @@ export const getRecentConnections = async (
   onError: (arg: any) => void,
 ) => {
   try {
-    // const headers = getHeaders();
-    // console.log('headers', headers);
-    // const result = await fetch(`${BASE_URL}/get-recent-connections`, {
-    //   method: 'GET',
-    //   headers,
-    // });
-    // if (result.ok) {
-    //   const responseData = await result.json();
-    //   onSuccess(responseData);
-    // } else {
-    //   // Handle error cases here, such as showing an error message to the user
-    //   onError(result);
-    // }
+    const headers = getHeaders();
 
-    //Remove this after logic added
-    onSuccess({
-      data: [
-        {
-          image_url: 'images/thumbnail.svg',
-          name: 'Adelfox - Engage your audience',
-          activity: 'opened just now',
-        },
-        {
-          image_url: 'images/thumbnail.svg',
-          name: 'Adelfox - Engage your audience',
-          activity: 'opened just now',
-        },
-        {
-          image_url: 'images/thumbnail.svg',
-          name: 'Adelfox - Engage your audience',
-          activity: 'opened just now',
-        },
-        {
-          image_url: 'images/thumbnail.svg',
-          name: 'Adelfox - Engage your audience',
-          activity: 'opened just now',
-        },
-        {
-          image_url: 'images/thumbnail.svg',
-          name: 'Adelfox - Engage your audience',
-          activity: 'opened just now',
-        },
-        {
-          image_url: 'images/thumbnail.svg',
-          name: 'Adelfox - Engage your audience',
-          activity: 'opened just now',
-        },
-        {
-          image_url: 'images/thumbnail.svg',
-          name: 'Adelfox - Engage your audience',
-          activity: 'opened just now',
-        },
-        {
-          image_url: 'images/thumbnail.svg',
-          name: 'Adelfox - Engage your audience',
-          activity: 'opened just now',
-        },
-      ],
+    const result = await fetch(`${BASE_URL}/get-recent-connections`, {
+      method: 'GET',
+      headers,
     });
+    if (result.ok) {
+      const responseData = await result.json();
+      onSuccess(responseData);
+    } else {
+      // Handle error cases here, such as showing an error message to the user
+      onError(result);
+    }
   } catch (error) {
     console.error('Error getting recent connections:', error);
     // Handle error cases here, such as showing an error message to the user
@@ -363,11 +317,11 @@ export const verifyUser = async (
   onError: (arg: any) => void,
 ) => {
   try {
+    const headers = getHeaders();
+
     const result = await fetch(`${BASE_URL}/verify-user`, {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
+      headers,
       body: JSON.stringify({
         token,
       }),
@@ -381,7 +335,41 @@ export const verifyUser = async (
       onError(result);
     }
   } catch (error) {
-    console.error('Error user sign in using google Oauth', error);
+    console.error('Error verifying user:', error);
+    onError(error);
+  }
+};
+
+export const updateProfile = async (
+  onSuccess: (arg: any) => void,
+  onError: (arg: any) => void,
+  old_password?: string,
+  new_password?: string,
+  name?: string,
+) => {
+  try {
+    const headers = getHeaders();
+
+    const result = await fetch(`${BASE_URL}/update-profile`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        old_password: old_password || '',
+        new_password: new_password || '',
+        name: name || '',
+      }),
+    });
+
+    if (result.ok) {
+      const responseData = await result.json();
+      onSuccess(responseData);
+    } else {
+      // Handle error cases here, such as showing an error message to the user
+      const responseData = await result.json();
+      onError(responseData);
+    }
+  } catch (error) {
+    console.error('Error updating profile:', error);
     onError(error);
   }
 };

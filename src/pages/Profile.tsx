@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { AuthContext } from '../utils/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -10,7 +10,7 @@ import {
   ToastMessage,
 } from '../components/UI';
 import { Verified } from '../components/svg-components';
-import { resendVerificationEmail } from '../utils/apis';
+import { resendVerificationEmail, updateProfile } from '../utils/apis';
 
 const Profile = () => {
   const { isUserVerified, userInfo } = useContext(AuthContext);
@@ -40,7 +40,7 @@ const Profile = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
 
   //Set profile initials and default form values
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (userInfo?.name) {
       let temp = userInfo?.name.split(' ');
       if (temp.length > 1) {
@@ -58,7 +58,7 @@ const Profile = () => {
   }, [userInfo]);
 
   //Handle save button visibility
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (formValues.password && formValues.newPassword) {
       setShowSaveButton(true);
     } else {
@@ -102,9 +102,17 @@ const Profile = () => {
     });
   };
 
-  const onSave = () => {
-    //Call api here
-    //On success
+  const onSave = async () => {
+    await updateProfile(
+      onProfileUpdateSuccess,
+      onProfileUpdateError,
+      formValues.password,
+      formValues.newPassword,
+      formValues.name,
+    );
+  };
+
+  const onProfileUpdateSuccess = () => {
     setFormValues({
       name: userInfo?.name,
       email: userInfo?.email,
@@ -113,6 +121,13 @@ const Profile = () => {
     });
     setToastConfig({ message: 'Changes successfully saved!', type: 'success' });
     setShowToast(true);
+  };
+
+  const onProfileUpdateError = (responseData: any) => {
+    if (responseData?.message) {
+      setToastConfig({ message: responseData?.message, type: 'error' });
+      setShowToast(true);
+    }
   };
 
   return (
@@ -196,7 +211,7 @@ const Profile = () => {
             {/* Name Card */}
             <div className="bg-[url(images/profile-bg.png)] bg-cover bg-no-repeat bg-[center] px-[40px] py-[60px] rounded-[36px] rounded-bl-[0px] rounded-br-[0px]">
               <div className="max-w-[1040px] mx-auto flex flex-row items-center gap-8">
-                <div className="p-[40px] min-w-[150px] min-h-[150px] bg-[#FFFFFF26] rounded-[100px] shadow-[inset_-3.3333332538604736px_-3.3333332538604736px_0px_0px_#FFFFFF26] flex justify-center">
+                <div className="p-[40px] min-w-[150px] min-h-[150px] bg-[#FFFFFF26] rounded-[100px] shadow-[inset_-3.3333332538604736px_-3.3333332538604736px_0px_0px_#FFFFFF26] flex justify-center items-center">
                   <Header content={`${profileName}`} color="text-white" />
                 </div>
                 <div>
@@ -262,7 +277,7 @@ const Profile = () => {
                 <div className="my-[40px] w-full h-[1px] bg-[#FFFFFF1F]"></div>
                 {/* User name  */}
                 <div className="flex flex-row gap-4 items-center justify-between">
-                  <div>
+                  <div className="flex-1">
                     <HeaderBold content={'User name'} lgSize="lg:text-headingBoldMd" />
                     <BodyText
                       content="Visible on your profile page and serving as your avatar."
@@ -287,7 +302,7 @@ const Profile = () => {
                 </div>
                 {/* Email */}
                 <div className="flex flex-row gap-4 items-center justify-between mt-[36px]">
-                  <div>
+                  <div className="flex-1">
                     <HeaderBold content={'Email ID'} lgSize="lg:text-headingBoldMd" />
                     <BodyText
                       content="You can sign into Octo Optimizer with this email address."
@@ -327,7 +342,7 @@ const Profile = () => {
                 <div className="my-[40px] w-full h-[1px] bg-[#FFFFFF1F]"></div>
                 {/* Password */}
                 <div className="flex flex-row gap-4 items-start justify-between">
-                  <div>
+                  <div className="flex-1">
                     <HeaderBold
                       content={'Change password'}
                       lgSize="lg:text-headingBoldMd"

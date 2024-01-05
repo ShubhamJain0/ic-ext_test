@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { BodyText, Button, Header, HeaderBold, ToastMessage } from '../components/UI';
 import { ConnectionCard } from '../components/ConnectionCard';
@@ -11,11 +11,20 @@ import {
 } from '../utils/apis';
 import { AuthContext } from '../utils/hooks/useAuth';
 import { Info } from '../components/svg-components';
+import { calculateLastOpened } from '../utils/methods';
+
+export type RecentConnections = {
+  siteName: string;
+  previewUrl: string;
+  lastOpened: string;
+};
 
 const Dashboard = () => {
   const { state } = useLocation();
   const [isFirstTimeUser, setIsFirstTimeUser] = useState(state?.isFirstTimeUser || false);
-  const [recentConnections, setRecentConnections] = useState<any>([]);
+  const [recentConnections, setRecentConnections] = useState<Array<RecentConnections>>(
+    [],
+  );
   const [recentConnectionsCount, setRecentConnectionsCount] = useState(0);
   const [recentActivity, setRecentActivity] = useState<any>([]);
   const [recentActivityCount, setRecentActivityCount] = useState(0);
@@ -42,9 +51,9 @@ const Dashboard = () => {
     //Navigate to compression page
     navigate('/select-website', {
       state: {
-        hasRecentConnections: recentConnections.length,
+        hasRecentConnections: recentConnections?.length,
         step: 2,
-        selectedConnection: { label: connection?.name, value: connection?.id },
+        selectedConnection: { label: connection?.siteName, value: connection?.id },
       },
     });
   };
@@ -55,8 +64,8 @@ const Dashboard = () => {
   };
 
   const onRecentConnectionsSuccess = (data: any) => {
-    setRecentConnections(data?.data?.slice(0, 3));
-    setRecentConnectionsCount(data?.data?.length);
+    setRecentConnections(data?.slice(0, 3));
+    setRecentConnectionsCount(data?.length);
   };
 
   const onRecentConnectionsError = () => {};
@@ -107,7 +116,7 @@ const Dashboard = () => {
     })();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (userInfo?.name) {
       let temp = userInfo?.name.split(' ');
       if (temp.length > 1) {
@@ -220,7 +229,7 @@ const Dashboard = () => {
                 type="button"
                 onClick={() =>
                   navigate('/select-website', {
-                    state: { hasRecentConnections: recentConnections.length > 0 },
+                    state: { hasRecentConnections: recentConnections?.length > 0 },
                   })
                 }
                 disabled={!isUserVerified}
@@ -255,11 +264,11 @@ const Dashboard = () => {
                 label={`View all (${recentConnectionsCount})`}
                 type="button"
                 size="medium"
-                disabled={!recentConnections.length}
+                disabled={!recentConnections?.length}
                 onClick={() => navigate('/connected-sites')}
               />
             </div>
-            {!recentConnections.length ? (
+            {!recentConnections?.length ? (
               <div className="bg-[#FFFFFF12] p-[100px] rounded-[12px] rounded-br-[0px] mt-[40px] flex flex-col items-center">
                 <div className="flex flex-col items-center">
                   <HeaderBold content="No connections found" align="text-center" />
@@ -279,7 +288,7 @@ const Dashboard = () => {
                       type="button"
                       onClick={() =>
                         navigate('/select-website', {
-                          state: { hasRecentConnections: recentConnections.length > 0 },
+                          state: { hasRecentConnections: recentConnections?.length > 0 },
                         })
                       }
                       disabled={!isUserVerified}
@@ -289,11 +298,11 @@ const Dashboard = () => {
               </div>
             ) : (
               <div className="grid md:grid-cols-3 grid-cols-1 gap-[24px] mt-[40px]">
-                {recentConnections.map((connection: any) => (
+                {recentConnections.map((connection) => (
                   <ConnectionCard
-                    image_url={connection.image_url}
-                    name={connection.name}
-                    activity={connection.activity}
+                    image_url={connection.previewUrl}
+                    name={connection.siteName}
+                    activity={'opened ' + calculateLastOpened(connection.lastOpened)}
                     onClick={() => onRecentConnectionClick(connection)}
                   />
                 ))}
@@ -312,11 +321,11 @@ const Dashboard = () => {
                 label={`View all (${recentActivityCount})`}
                 type="button"
                 size="medium"
-                disabled={!recentActivity.length}
+                disabled={!recentActivity?.length}
                 onClick={() => navigate('/task-history')}
               />
             </div>
-            {!recentActivity.length ? (
+            {!recentActivity?.length ? (
               <div className="bg-[#FFFFFF12] p-[100px] rounded-[12px] rounded-br-[0px] mt-[40px] flex flex-col items-center">
                 <div className="flex flex-col items-center">
                   <HeaderBold content="No recent activity" align="text-center" />
@@ -401,7 +410,7 @@ const Dashboard = () => {
                       sizeSaved={activity.sizeSaved}
                       onClick={() => onRecentActivityClick(activity)}
                     />
-                    {index !== recentActivity.length - 1 && (
+                    {index !== recentActivity?.length - 1 && (
                       <div className="w-full h-[1px] bg-[#F4F4F5] opacity-10 my-[24px]"></div>
                     )}
                   </>
@@ -486,7 +495,7 @@ const Dashboard = () => {
                 type="button"
                 onClick={() =>
                   navigate('/select-website', {
-                    state: { hasRecentConnections: recentConnections.length > 0 },
+                    state: { hasRecentConnections: recentConnections?.length > 0 },
                   })
                 }
               />
